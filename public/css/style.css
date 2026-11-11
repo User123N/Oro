@@ -345,3 +345,6 @@ footer{background:#0d0c0a!important;border-top:1px solid rgba(217,181,111,.16)!i
   .pi{border-radius:15px!important}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero .cv3{animation:none!important}}
+
+/* La ficha usa fotografía y galería; no reserva espacio para render 3D. */
+.pd-3d{display:none!important}
