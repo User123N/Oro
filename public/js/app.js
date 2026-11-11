@@ -1,12 +1,12 @@
 const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const U=(i,w=900)=>`https://images.unsplash.com/photo-${i}?auto=format&fit=crop&w=${w}&q=80`,$$=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(+n||0);
 const FH=['Fraunces','Bodoni Moda','Playfair Display','Syne'],FB=['Manrope','DM Sans','Inter'];
-const D={brand:'ÁUREA',ini:'A',logo:'',fav:'✦',wa:'573001234567',ig:'@aurea.joyas',mail:'hola@aurea.co',addr:'Barranquilla, Colombia',hrs:'Lun–Sáb · 9am – 7pm',wMsg:'Hola, quiero información sobre sus joyas.',
-ann:'ENVÍOS A TODO EL PAÍS · PIDE FÁCIL POR WHATSAPP',marq:'ORO LAMINADO ✦ DISEÑO ATEMPORAL ✦ ENVÍO NACIONAL ✦ BRILLO GARANTIZADO ✦ ',
-hEye:'JOYAS PARA TU HISTORIA',hT:'Pequeños detalles.|Brillo infinito.',hP:'Piezas que acompañan tu estilo y convierten cada día en una ocasión especial. Encuentra tu próxima favorita.',hB1:'Descubrir la colección',hB2:'Conócenos',hImg:U('1611652022419-a9419f74343d',1500),
+const D={brand:'JOYERÍA SGARCÍA',ini:'SG',logo:'',fav:'✦',wa:'573001234567',ig:'@aurea.joyas',mail:'hola@aurea.co',addr:'Barranquilla, Colombia',hrs:'Lun–Sáb · 9am – 7pm',wMsg:'Hola, quiero información sobre sus joyas.',
+ann:'JOYERÍA SGARCÍA · ORO · ELEGANCIA · DISTINCIÓN',marq:'JOYERÍA SGARCÍA ✦ ORO Y ELEGANCIA ✦ PIEZAS PARA TRASCENDER ✦ DISTINCIÓN EN CADA DETALLE ✦ ',
+hEye:'JOYERÍA SGARCÍA · ORO · ELEGANCIA · DISTINCIÓN',hT:'El lujo está|en los detalles.',hP:'Joyas que hablan por ti. Diseños con carácter, brillo y distinción para convertir cada instante en algo inolvidable.',hB1:'Descubrir la colección',hB2:'Conócenos',hImg:U('1611652022419-a9419f74343d',1500),
 n1:'+2.000',l1:'clientas felices',n2:'48 h',l2:'despacho',n3:'100%',l3:'brillo garantizado',
-cEye:'EXPLORA',cT:'Nuestras colecciones',cP:'Cada colección cuenta una historia distinta. Elige la tuya.',fEye:'ENCUENTRA TU FAVORITA',fT:'Los favoritos',fP:'Las piezas más pedidas, listas para ti.',
-bEye:'EDICIÓN LIMITADA',bT:'Oro que se queda contigo',bP:'Acabados duraderos y diseños que combinan con todo. Descubre las novedades de la temporada.',bBtn:'Ver novedades',bImg:U('1515562141207-7a88fb7ce338',1600),
+cEye:'EL ARTE DE DISTINGUIR',cT:'Colecciones con carácter',cP:'Cada colección cuenta una historia distinta. Elige la tuya.',fEye:'SELECCIÓN SG',fT:'Piezas extraordinarias',fP:'Las piezas más pedidas, listas para ti.',
+bEye:'EDICIÓN LIMITADA',bT:'Una presencia que no necesita presentación',bP:'Acabados duraderos y diseños que combinan con todo. Descubre las novedades de la temporada.',bBtn:'Ver novedades',bImg:U('1515562141207-7a88fb7ce338',1600),
 stT:'Pedir es muy fácil',s1t:'Elige',s1d:'Explora y agrega tus piezas favoritas.',s2t:'Escríbenos',s2d:'Envía tu pedido por WhatsApp con un clic.',s3t:'Recíbelo',s3d:'Te lo enviamos a la puerta de tu casa.',
 sEye:'NUESTRA ESENCIA',sT:'El toque final que habla de ti.',sP:'Creemos que los accesorios guardan recuerdos, acompañan momentos y expresan personalidad. Por eso elegimos piezas versátiles que puedes llevar a tu manera, todos los días.',sImg:U('1617038220319-276d3cfab638',1000),sBtn:'Hablemos',
 tEye:'OPINIONES',tT:'Lo que dicen de nosotras',t1n:'Valentina R.',t1t:'Hermosa la cadena, el brillo se mantiene igual después de meses.',t2n:'Camila G.',t2t:'Llegó rapidísimo y empacado como regalo. Volveré a pedir.',t3n:'Laura M.',t3t:'La atención por WhatsApp es excelente, me asesoraron en todo.',
