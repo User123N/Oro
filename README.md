@@ -1,4 +1,4 @@
-# ÁUREA · Tienda de joyería (Supabase + GitHub + Netlify)
+# JOYERÍA SGARCÍA · Tienda de joyería masculina (Supabase + GitHub + Netlify)
 
 ```
 public/            sitio web (index.html, css/, js/)
@@ -15,10 +15,10 @@ netlify.toml · build.sh  despliegue
 
 ## 2) GitHub
 ```
-cd aurea-tienda
-git init && git add . && git commit -m "Tienda ÁUREA"
+cd oro
+git init && git add . && git commit -m "Tienda SGarcía"
 git branch -M main
-git remote add origin https://github.com/TU_USUARIO/aurea-tienda.git
+git remote add origin https://github.com/TU_USUARIO/oro.git
 git push -u origin main
 ```
 (Crea antes el repositorio vacío en github.com.)

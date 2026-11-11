@@ -1,0 +1,66 @@
+/* JOYERÍA SGARCÍA — capa final de identidad. Se carga después de style.css.
+   Paleta: #050505 #101010 #1C1C1C · oro #D6A64B · champagne #F2D99E · oro oscuro #94621F · blanco cálido #F1E6D2 */
+:root{--c0:#050505;--c1:#101010;--c2:#1c1c1c;--au:#d6a64b;--ch:#f2d99e;--ad:#94621f;--bw:#f1e6d2;
+--marble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='m' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004 .011' numOctaves='5' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 .84 0 0 0 0 .65 0 0 0 0 .29 6 -2.6 0 0 -1.9'/%3E%3C/filter%3E%3Crect width='900' height='900' filter='url(%23m)' opacity='.5'/%3E%3C/svg%3E")}
+body:before{background:radial-gradient(ellipse at 20% 0,#94621f26,transparent 40%),linear-gradient(160deg,var(--c0),var(--c1) 55%,var(--c0))!important}
+.cr,.dk{position:relative;background:var(--c1)!important}
+.cr:before,.dk:before,.ph:before{content:"";position:absolute;inset:0;z-index:-1;background:var(--marble);background-size:900px;opacity:.35;mix-blend-mode:screen;pointer-events:none}
+.cr,.dk,.ph{isolation:isolate}
+.hd h2,.sy h2{font-weight:500}
+.btn,.btn.o,.ch,.sb,.fi,.tg,.qa,.tt,.wa,.cl,.pc,.stp,.tq,.sy img,.bn,.vw,.dr{border-radius:4px!important}
+.btn{border-radius:2px!important}
+.top{letter-spacing:.22em}
+
+/* HERO */
+.hero{min-height:max(760px,100svh);margin-top:-110px;padding-top:110px;background:var(--c0)}
+.hero:before{background:var(--marble),radial-gradient(ellipse at 72% 50%,#94621f33,transparent 46%),linear-gradient(90deg,var(--c0) 8%,#050505b0 45%,#05050500);background-size:900px,auto,auto;opacity:1;mix-blend-mode:normal}
+.hero:after{display:none}
+.hero .w{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.hero h1{font-size:clamp(46px,6.4vw,100px);line-height:.96;color:var(--bw);text-transform:uppercase;letter-spacing:-.02em;font-weight:500}
+.hero h1 .gt{font-style:normal}
+.lh{position:relative;width:100%;aspect-ratio:1/1;max-height:78vh;justify-self:center;display:grid;place-items:center;animation:lhin 1.6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes lhin{from{opacity:0;transform:scale(.9) translateY(30px)}}
+.lh canvas,.lh .lh-fb{position:absolute;inset:0;width:100%;height:100%}
+.lh .lh-fb{object-fit:contain;filter:drop-shadow(0 22px 44px #d6a64b55);animation:flt 7s ease-in-out infinite}
+.lh.gl-on .lh-fb{display:none}
+@keyframes flt{50%{transform:translateY(-12px)}}
+.lh-sh{position:absolute;left:25%;right:25%;bottom:2%;height:6%;border-radius:50%;background:radial-gradient(ellipse,#000c,transparent 70%);filter:blur(10px);animation:shd 7s ease-in-out infinite}
+@keyframes shd{50%{transform:scale(.82);opacity:.6}}
+.st b{color:var(--ch)}
+
+/* Estructura sin plantilla: sin números decorativos en valores */
+.stp em{font-size:22px;font-style:normal;color:var(--au);-webkit-text-fill-color:var(--au);background:none;letter-spacing:.1em}
+.mk{position:relative;width:100%;height:560px;display:grid;place-items:center;border:1px solid #d6a64b55;background:var(--marble),radial-gradient(ellipse at 50% 40%,#2a2012,var(--c0) 70%);background-size:900px,auto}
+.mk img{width:72%;filter:drop-shadow(0 20px 40px #d6a64b44)}
+.bn .bg:empty,.hero .bg[style*="url('')"]{background-image:none}
+.bn{background:var(--marble),var(--c0);background-size:900px,auto}
+
+/* PRODUCTO: galería protagonista a la izquierda */
+.pd{grid-template-columns:minmax(0,1.25fr) minmax(340px,.75fr)}
+.pd-main-frame{height:clamp(480px,70vh,820px);cursor:zoom-in;border-radius:4px;touch-action:manipulation}
+.pd-main-img{padding:3%;transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .35s;will-change:transform}
+.pd-main-img.sw{opacity:0}
+.pd-main-frame.zoom{cursor:zoom-out}
+.pd-main-frame.zoom .pd-main-img{transform:scale(2.2);transition:transform .35s}
+.pd-main-frame:hover .pd-main-img{transform:none}
+.pd-main-frame.zoom:hover .pd-main-img{transform:scale(2.2)}
+.pd-thumb{border-radius:3px}
+.pd-hint{position:absolute;top:18px;right:20px;font-size:10px;letter-spacing:.2em;color:#d9bd82;background:#090807a8;border:1px solid #d6a64b40;padding:8px 12px;border-radius:2px;pointer-events:none}
+.pd-info h1{text-transform:uppercase;font-size:clamp(34px,3.8vw,58px)}
+
+/* Carrito, formularios, admin */
+.dr{border-radius:0!important}
+.fi:focus,.bar input:focus,.fd2 input:focus,.fd2 textarea:focus,.fd2 select:focus,.btn:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--ch);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--au);color:var(--c0);padding:10px 16px;z-index:300}.skip:focus{left:8px}
+
+@media(max-width:900px){
+ .hero{margin-top:-90px;padding-top:100px}
+ .hero .w{grid-template-columns:1fr;min-height:auto}
+ .lh{max-width:420px;max-height:none;order:-1}
+ .hero h1{font-size:clamp(40px,11vw,72px)}
+ .pd-main-frame{height:min(110vw,640px)}
+ .mk{height:380px}
+}
+.hero h1{font-size:clamp(40px,5.2vw,82px)}
+.wa{animation:none!important;box-shadow:0 12px 36px #94621f66!important}
+@media(max-width:900px){.hero h1{font-size:clamp(36px,10vw,64px)}}
