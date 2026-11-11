@@ -438,3 +438,93 @@ footer p,footer a{color:#c8b99f!important}
  .hero .cv3{animation:none!important}
  .pc,.btn,.cl,.stp{transition:none!important}
 }
+
+
+/* SGARCIA · One UI inspired refinement — black / smoked glass / liquid gold */
+:root{
+  --r:28px!important;
+  --gold:#d9b56f!important;
+  --ink:#f4ecdf!important;
+  --paper:#080807!important;
+  --cream:#15130f!important;
+  --rose:#211b12!important;
+  --gd:#e8c985!important;
+}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{background:#080807!important;color:#f4ecdf!important}
+header{
+  top:10px!important;
+  width:calc(100% - 32px)!important;
+  border-radius:30px!important;
+  background:rgba(17,16,14,.72)!important;
+  border:1px solid rgba(235,211,164,.16)!important;
+  box-shadow:0 18px 55px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.07)!important;
+  backdrop-filter:blur(30px) saturate(1.35)!important;
+}
+.nv{min-height:76px}
+.lm{background:transparent!important;border:0!important;box-shadow:none!important}
+.brand-mark{object-fit:contain!important;filter:drop-shadow(0 0 18px #d9b56f55)!important}
+.brand-word{letter-spacing:.13em!important;color:#f2e4c8!important}
+.nl a{font-size:11px!important;letter-spacing:.08em!important}
+.sec{padding:clamp(68px,8vw,112px) 0!important}
+.hd{margin-bottom:38px!important}
+.hd h2{font-family:var(--fb)!important;font-weight:650!important;letter-spacing:-.055em!important;line-height:1.02!important}
+.hero h1,.ph h1,.pd-info h1{font-family:var(--fb)!important;font-weight:650!important;letter-spacing:-.06em!important}
+.hero{background:#090908!important}
+.hero:before{filter:blur(2px)!important}
+.hero .cv3{border-radius:34px!important;border:1px solid #d9b56f35!important;box-shadow:0 28px 85px #000a,0 0 38px #d9b56f16!important}
+.btn,.btn.o,.ch,.sb,.qa,.ic,.pd-thumb,.wa{
+  border-radius:16px!important;
+}
+.btn{font-family:var(--fb)!important;font-weight:650!important;letter-spacing:.02em!important;text-transform:none!important}
+.btn.o{background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.14)!important;backdrop-filter:blur(18px)!important}
+.gp{gap:clamp(12px,1.6vw,22px)!important}
+.pc{
+  padding:8px!important;
+  border-radius:28px!important;
+  background:rgba(255,255,255,.045)!important;
+  border:1px solid rgba(255,255,255,.09)!important;
+  box-shadow:0 16px 44px rgba(0,0,0,.28)!important;
+  backdrop-filter:blur(22px)!important;
+}
+.pc:hover{border-color:rgba(217,181,111,.42)!important;transform:translateY(-5px)!important}
+.pi{border-radius:21px!important;background:linear-gradient(145deg,#242018,#100f0c)!important}
+.pn{padding:17px 13px 13px!important}
+.pn h3{font-family:var(--fb)!important;font-weight:620!important;letter-spacing:-.035em!important}
+.pn b{border-radius:13px!important;background:rgba(217,181,111,.12)!important;border:1px solid rgba(217,181,111,.2)!important}
+.gc .cl,.cl{border-radius:28px!important}
+.stp,.tq{
+  border-radius:26px!important;
+  background:rgba(255,255,255,.045)!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.26)!important;
+  backdrop-filter:blur(22px)!important;
+}
+.bar input,.bar select,.fi,.fd2 input,.fd2 textarea,.fd2 select{
+  border-radius:16px!important;
+  background:rgba(255,255,255,.055)!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  color:#f4ecdf!important;
+}
+.ch{background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.12)!important}
+.ch.on,.ch:hover{background:#d9b56f!important;color:#100d08!important}
+.dr{
+  background:rgba(15,14,12,.94)!important;
+  border-left:1px solid rgba(217,181,111,.2)!important;
+  border-radius:30px 0 0 30px!important;
+  backdrop-filter:blur(30px)!important;
+}
+footer{background:#0d0c0a!important;border-top:1px solid rgba(217,181,111,.16)!important}
+.wa{border-radius:18px!important}
+@media(max-width:900px){
+  header{width:calc(100% - 20px)!important}
+  .nl{max-width:55vw;overflow-x:auto;scrollbar-width:none}
+  .nl::-webkit-scrollbar{display:none}
+}
+@media(max-width:600px){
+  header{width:calc(100% - 14px)!important;border-radius:22px!important}
+  .nv{min-height:62px}
+  .hero .cv3{border-radius:26px!important}
+  .pc{border-radius:20px!important}
+  .pi{border-radius:15px!important}
+}
