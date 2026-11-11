@@ -205,3 +205,76 @@ footer p,footer a{color:#c7baa4}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
+
+/* SGARCÍA — bold masculine luxury, generous product imagery and tactile surfaces */
+:root{--r:26px!important;--gold:#d6a64b!important;--ink:#f1e6d2!important;--paper:#080807!important;--cream:#15120e!important;--rose:#21180f!important}
+body{background:#080807;color:#f1e6d2}
+body:before{background:radial-gradient(ellipse at 18% 15%,#a46b251c,transparent 38%),radial-gradient(ellipse at 82% 72%,#d1a14b12,transparent 34%),linear-gradient(135deg,#050505,#11100e 52%,#070706)}
+.top{background:#070706;color:#d6b775;border-color:#d6a64b50}
+header{border-radius:24px;background:#090908ed;border-color:#d6a64b55}
+.lm{width:58px;height:58px;border:0;background:transparent;box-shadow:none;border-radius:0;overflow:visible}
+.brand-mark{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 5px 18px #d6a64b55)}
+.brand-word{font-family:'Bodoni Moda',serif;letter-spacing:.15em;color:#f2d99e;font-size:17px}
+.hero{min-height:830px;background:#070706}
+.hero:before{background:radial-gradient(ellipse at 75% 48%,#b17b2c25,transparent 43%),repeating-linear-gradient(132deg,transparent 0 120px,#d5a64b08 121px,#d5a64b08 123px,transparent 124px 240px)}
+.hero h1{font-family:'Bodoni Moda',serif;font-weight:500;letter-spacing:-.045em}
+.hero .cv3{height:650px;filter:drop-shadow(0 28px 50px #d6a64b55)}
+.ey{color:#d8b46d;letter-spacing:.28em}
+.gt{background:linear-gradient(110deg,#8b5a18,#f8df9c 24%,#b77c27 48%,#fff0bf 68%,#9b681f);background-size:220%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{border-radius:12px;background:linear-gradient(115deg,#94621f,#e6c477 48%,#fff0bb 55%,#a87528);color:#100d08;border:1px solid #f4d58e88;letter-spacing:.13em;box-shadow:0 14px 36px #a8752d32}
+.btn.o{background:#ffffff08;color:#f2dfb7;border:1px solid #d6ad6b77}
+.sec{padding:108px 0}
+.cl,.pc,.stp,.tq{border-radius:24px}
+.cl{border-color:#d6a64b38;background:#100f0d}
+.pc{border:1px solid #d6a64b30;border-radius:22px;background:linear-gradient(145deg,#15120e,#090807);overflow:hidden}
+.pi{aspect-ratio:4/5;background:radial-gradient(ellipse,#292015,#0d0b08 75%);border-radius:0}
+.pi img{object-fit:contain;padding:8%;mix-blend-mode:normal;filter:contrast(1.04) saturate(.82)}
+.pn{padding:22px}
+.pn h3{font-family:'Bodoni Moda',serif;font-size:25px;color:#f0e4cf}
+.pn b{border-radius:9px;background:#211a10;color:#edce88}
+.qa{border-radius:12px;background:#d6a64b;color:#100d08}
+.tg{border-radius:8px}
+.pd{grid-template-columns:minmax(0,1.15fr) minmax(340px,.85fr);gap:clamp(35px,5vw,80px);padding:65px 0;align-items:start}
+.pd-gallery{min-width:0}
+.pd-main-frame{position:relative;width:100%;height:clamp(520px,62vw,760px);overflow:hidden;border-radius:30px;border:1px solid #d6a64b55;background:radial-gradient(ellipse at 50% 42%,#332718,#15110b 56%,#090807);box-shadow:0 35px 90px #000a,0 0 40px #d6a64b12;display:grid;place-items:center}
+.pd-main-img{width:100%;height:100%;object-fit:contain;padding:5%;transition:transform .65s;filter:drop-shadow(0 22px 28px #0009)}
+.pd-main-frame:hover .pd-main-img{transform:scale(1.045)}
+.pd-image-label{position:absolute;bottom:22px;left:24px;color:#d9bd82;font-size:9px;letter-spacing:.25em;background:#090807a8;border:1px solid #d6a64b40;padding:10px 13px;border-radius:30px;backdrop-filter:blur(12px)}
+.th{display:flex;gap:14px;margin:16px 0 26px;flex-wrap:wrap}
+.pd-thumb{width:104px;height:104px;border-radius:17px;overflow:hidden;border:1px solid #d6a64b38;background:#17130e;padding:0;cursor:pointer;transition:.25s}
+.pd-thumb img{width:100%;height:100%;object-fit:contain;padding:8%}
+.pd-thumb.active,.pd-thumb:hover{border:2px solid #e6c477;box-shadow:0 0 22px #d6a64b35}
+.vw.pd-3d{border-radius:26px;background:radial-gradient(ellipse at 50% 42%,#4a3519,#100d08 72%);border:1px solid #d6a64b55;box-shadow:0 24px 70px #0009}
+.pd-3d .cv3{height:350px}
+.pd-info{position:sticky;top:120px;padding:22px 0}
+.pd-info h1{font-family:'Bodoni Moda',serif;font-weight:500;letter-spacing:-.035em;font-size:clamp(42px,4.7vw,70px);line-height:1.02;color:#f4ead7;margin:20px 0}
+.pd-rule{height:1px;background:linear-gradient(90deg,#d6a64b,#d6a64b00);margin:24px 0}
+.pd-info .pr{font-size:38px;color:#e8c77e}
+.pd-info p{color:#cfc1a9;line-height:1.9;font-size:15px;opacity:1}
+.pd-info ul{color:#d6c6a8;line-height:2.2;padding-left:20px}
+.pd-stock{font-size:12px;letter-spacing:.08em;color:#d6b775!important}
+.pd-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.pd-actions .btn{flex:1;min-width:190px;justify-content:center}
+.pd-assurance{display:grid;gap:12px;margin-top:34px;padding-top:24px;border-top:1px solid #d6a64b35;color:#cdb887;font-size:11px;letter-spacing:.08em}
+.pd-assurance span{display:block}
+.dr{border-radius:28px 0 0 28px}
+.stp,.tq{background:linear-gradient(145deg,#17140f,#0b0a08);border:1px solid #c99a3b35}
+footer{border-radius:0;background:linear-gradient(180deg,#12100d,#070706)}
+@media(max-width:900px){
+ .pd{grid-template-columns:1fr;gap:25px;padding:30px 0}
+ .pd-main-frame{height:min(112vw,650px);min-height:420px}
+ .pd-info{position:static;padding:10px 0 30px}
+ .pd-3d .cv3{height:300px}
+ .hero .cv3{height:380px}
+}
+@media(max-width:600px){
+ .brand-word{font-size:13px;letter-spacing:.08em}
+ .lm{width:45px;height:45px}
+ .hero{padding:60px 0 35px}
+ .hero .cv3{height:300px}
+ .sec{padding:68px 0}
+ .pd-main-frame{min-height:370px;border-radius:22px}
+ .pd-thumb{width:78px;height:78px}
+ .pd-info h1{font-size:42px}
+ .pd-actions .btn{min-width:100%}
+}
