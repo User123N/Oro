@@ -87,7 +87,7 @@ const out=()=>sb.auth.signOut().then(()=>{ses=null;location.hash='#/';location.r
 /* rutas */
 let revealObserver=null;const rv=()=>{if(!('IntersectionObserver'in window)){document.querySelectorAll('.rv').forEach(e=>e.classList.add('s'));return}if(!revealObserver)revealObserver=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('s');revealObserver.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px 80px 0px'});document.querySelectorAll('.rv:not(.s)').forEach((e,i)=>{e.style.transitionDelay=(i%4)*45+'ms';revealObserver.observe(e)})};
 function route(q2){const[,r,a]=(location.hash||'#/').slice(1).split('/');document.querySelectorAll('.rv').forEach(e=>revealObserver?.unobserve(e));dr(0);const A=$('#app');document.querySelector('#lh')?._logo3dCleanup?.();$('#ft').style.display=r=='admin'?'none':'';
-if(r=='admin'){ses?adm():login();return}
+if(r=='admin'){if(SB.url&&SB.key&&!sb){A.innerHTML='<div class="w sec" style="text-align:center"><p>Conectando con el panel seguro…</p></div>';return}ses?adm():login();return}
 A.innerHTML=r=='tienda'?shop():r=='coleccion'?shop(a):r=='producto'?prod(a):r=='nosotros'?about():r=='contacto'?contact():home();
 parallaxNodes=[...document.querySelectorAll('[data-px]')];
 if(r=='tienda'||r=='coleccion')lst();const h=$('#lh');if(h&&S.fx=='1'){const run=()=>l3().then(()=>{if(h.isConnected&&window.logo3d)logo3d(h)});if('requestIdleCallback'in window)requestIdleCallback(run,{timeout:900});else setTimeout(run,120)}rv()}
