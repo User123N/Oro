@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const U=(i,w=900)=>`https://images.unsplash.com/photo-${i}?auto=format&fit=crop&w=${w}&q=80`,$$=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(+n||0);
+const U=(i,w=900)=>`https://images.unsplash.com/photo-${i}?auto=format&fit=crop&w=${w}&q=76`,$$=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(+n||0);
 const FH=['Bodoni Moda'],FB=['Jost'];
 const D={brand:'JOYERÍA SGARCÍA',ini:'SG',logo:'img/sg-logo.webp',fav:'SG',wa:'573001234567',ig:'@joyeria_sgarcia',mail:'contacto@joyeriasgarcia.com',addr:'Barranquilla, Colombia',hrs:'Lun–Sáb · 9am – 7pm',wMsg:'Hola, quiero información sobre sus joyas.',
 ann:'Envíos a todo el país · Pedidos por WhatsApp',marq:'CADENAS ✦ PULSERAS ✦ ANILLOS ✦ DIJES ✦ ACCESORIOS MASCULINOS ✦ ',
@@ -85,7 +85,7 @@ async function lg2(){const p=$('#pwi').value;if(sb){const r=await sb.auth.signIn
 const out=()=>sb.auth.signOut().then(()=>{ses=null;location.hash='#/';location.reload()});
 /* rutas */
 const rv=()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('s');io.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll('.rv:not(.s)').forEach((e,i)=>{e.style.transitionDelay=(i%4)*90+'ms';io.observe(e)})};
-function route(q2){const[,r,a]=(location.hash||'#/').slice(1).split('/');dr(0);const A=$('#app');$('#ft').style.display=r=='admin'?'none':'';
+function route(q2){const[,r,a]=(location.hash||'#/').slice(1).split('/');dr(0);const A=$('#app');document.querySelector('#lh')?._logo3dCleanup?.();$('#ft').style.display=r=='admin'?'none':'';
 if(r=='admin'){ses?adm():login();return}
 A.innerHTML=r=='tienda'?shop():r=='coleccion'?shop(a):r=='producto'?prod(a):r=='nosotros'?about():r=='contacto'?contact():home();
 if(r=='tienda'||r=='coleccion')lst();const h=$('#lh'),p=$('#pv');if((h||p)&&S.fx=='1'){const run=()=>l3().then(()=>{if(h&&h.isConnected)logo3d(h);if(p&&p.isConnected)jewel3d(p,(P.find(x=>x.id==a)||{}).shape)});window.requestIdleCallback?requestIdleCallback(run,{timeout:600}):setTimeout(run,60)}rv()}
