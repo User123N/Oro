@@ -359,3 +359,34 @@ footer{border-radius:34px 34px 0 0!important}
 @media(prefers-reduced-motion:reduce){
   .pi img,.pd-main-img{transition:none!important}
 }
+
+
+/* ===== RENDIMIENTO: conservar el acabado glass con menos trabajo de GPU ===== */
+body:after{opacity:.045!important}
+header{
+  -webkit-backdrop-filter:blur(18px) saturate(1.18)!important;
+  backdrop-filter:blur(18px) saturate(1.18)!important;
+}
+.pc,.stp,.tq,.dr,.btn.o{
+  -webkit-backdrop-filter:blur(13px) saturate(1.1)!important;
+  backdrop-filter:blur(13px) saturate(1.1)!important;
+}
+.cl span{
+  -webkit-backdrop-filter:blur(8px)!important;
+  backdrop-filter:blur(8px)!important;
+}
+.rv{
+  transform:translateY(24px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)!important;
+}
+@media(max-width:900px){
+  header,.pc,.stp,.tq,.dr,.btn.o{
+    -webkit-backdrop-filter:blur(10px) saturate(1.08)!important;
+    backdrop-filter:blur(10px) saturate(1.08)!important;
+  }
+  .rv{transform:translateY(18px)}
+}
+@media(hover:none){
+  .pc:hover,.stp:hover{transform:none!important}
+  .pc:hover .pi img{transform:none!important}
+}

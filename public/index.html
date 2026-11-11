@@ -8,11 +8,25 @@
 <link id="fv" rel="icon" href="img/sg-logo.webp">
 <link rel="preload" as="image" href="img/sg-logo.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300..700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300..700&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/sgarcia.css"></head>
 <body><a class="skip" href="#app">Saltar al contenido</a><div id="gl"></div><div id="ct"></div><div id="hd"></div><main id="app"></main><div id="ft"></div><aside class="dr" id="dr" aria-label="Mi pedido"></aside><div class="tt" id="tt" role="status" aria-live="polite"></div>
 <noscript><p style="padding:40px;color:#f1e6d2;background:#050505">Joyería SGarcía necesita JavaScript para mostrar la tienda.</p></noscript>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" defer></script>
 <script src="js/config.js"></script>
+<script>
+window.__sbReady=Promise.resolve();
+if(window.SB&&window.SB.url&&window.SB.key){
+  window.__sbReady=new Promise(resolve=>{
+    const script=document.createElement('script');
+    script.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+    script.async=true;
+    script.onload=resolve;
+    script.onerror=resolve;
+    document.head.appendChild(script);
+  });
+}
+</script>
 <script src="js/logo3d.js" defer></script>
 <script src="js/app.js" defer></script></body></html>
