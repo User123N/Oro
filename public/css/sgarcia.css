@@ -242,3 +242,120 @@ footer{border-radius:34px 34px 0 0!important}
 @keyframes sgLogoFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-12px,0)}}
 .lh-hint,.pd-3d{display:none!important}
 @media(prefers-reduced-motion:reduce){.lh .lh-fb{animation:none!important}}
+
+
+/* ===== IMÁGENES INTEGRADAS: CATÁLOGO Y FICHAS =====
+   La pieza conserva su proporción; el área completa se integra con el fondo,
+   sin recortar bordes ni dejar el efecto de fotografía flotando. */
+.pc{overflow:hidden!important}
+.pi{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1!important;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(ellipse at 50% 42%,#49371f 0%,#211a10 42%,#11100e 76%)!important;
+}
+.pi:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 78%,#d8b66f18,transparent 55%),
+    linear-gradient(145deg,#ffffff08,transparent 42%);
+}
+.pi img{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1;
+  display:block;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  padding:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+  filter:drop-shadow(0 18px 24px #000b) drop-shadow(0 4px 12px #d8b66f18)!important;
+  transform:none;
+  transition:opacity .55s ease,filter .55s ease!important;
+}
+.pi img.h{opacity:0!important}
+.pc:hover .pi img.h{opacity:1!important}
+.pc:hover .pi img:not(.h){transform:none!important;filter:drop-shadow(0 22px 28px #000c) drop-shadow(0 5px 16px #d8b66f2a)!important}
+.pi .tg,.pi .qa{z-index:3}
+.pi .qa{bottom:12px;left:12px;right:12px}
+
+/* Imagen principal: ocupa todo el marco sin cortar la joya. */
+.pd-main-frame{
+  position:relative;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(ellipse at 50% 42%,#49371f 0%,#211a10 43%,#0b0a08 82%)!important;
+  border:1px solid #d8b66f35;
+  box-shadow:inset 0 1px #ffffff12,0 24px 70px #0008;
+}
+.pd-main-frame:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:radial-gradient(ellipse at 50% 78%,#d8b66f1c,transparent 58%);
+}
+.pd-main-img{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  padding:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+  filter:drop-shadow(0 24px 30px #000b) drop-shadow(0 5px 18px #d8b66f20)!important;
+}
+.pd-main-frame.zoom .pd-main-img{transform:scale(1.45)!important}
+.pd-main-frame.zoom:hover .pd-main-img{transform:scale(1.45)!important}
+.pd-thumb{
+  width:88px;
+  height:88px;
+  padding:0!important;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(ellipse at 50% 40%,#392b19,#11100e 78%)!important;
+  border:1px solid #d8b66f35!important;
+}
+.pd-thumb img{
+  width:100%!important;
+  height:100%!important;
+  padding:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+  filter:drop-shadow(0 5px 9px #000a);
+}
+.pd-thumb.active{border-color:#d8b66f!important;box-shadow:0 0 0 1px #d8b66f55}
+
+/* Miniaturas de carrito y panel: misma integración visual. */
+.ci img,.rw img,.ir img{
+  object-fit:contain!important;
+  padding:4px!important;
+  background:radial-gradient(ellipse at 50% 42%,#392b19,#11100e 78%)!important;
+  border:1px solid #d8b66f25;
+}
+@media(max-width:600px){
+  .pi{aspect-ratio:1/1!important}
+  .pd-main-frame{height:min(112vw,620px)!important;min-height:340px!important}
+  .pd-thumb{width:70px;height:70px}
+}
+@media(prefers-reduced-motion:reduce){
+  .pi img,.pd-main-img{transition:none!important}
+}
