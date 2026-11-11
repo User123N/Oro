@@ -4,7 +4,7 @@ const FH=['Bodoni Moda'],FB=['Jost'];
 const D={brand:'JOYERÍA SGARCÍA',ini:'SG',logo:'img/sg-logo.webp',fav:'SG',wa:'573001234567',ig:'@joyeria_sgarcia',mail:'contacto@joyeriasgarcia.com',addr:'Barranquilla, Colombia',hrs:'Lun–Sáb · 9am – 7pm',wMsg:'Hola, quiero información sobre sus joyas.',
 ann:'Envíos a todo el país · Pedidos por WhatsApp',marq:'CADENAS ✦ PULSERAS ✦ ANILLOS ✦ DIJES ✦ ACCESORIOS MASCULINOS ✦ ',
 hEye:'Joyería masculina',hT:'El carácter está|en los detalles.',hP:'Diseño, presencia y distinción. Accesorios creados para hombres que tienen su propio estilo.',hB1:'Ver colecciones',hB2:'La marca',hImg:'',
-n1:'Oro laminado',l1:'material',n2:'48 h',l2:'despacho',n3:'Nacional',l3:'envíos',
+n1:'SG',l1:'identidad propia',n2:'Diseño',l2:'masculino',n3:'WhatsApp',l3:'atención directa',
 cEye:'Colecciones',cT:'Cadenas, pulseras, anillos y dijes',cP:'Líneas firmes, volumen y acabados dorados para hombres que no pasan desapercibidos.',fEye:'Selección SG',fT:'Piezas destacadas',fP:'Eslabones, volumen y acabados que definen presencia.',
 bEye:'La marca',bT:'No se trata de seguir tendencias. Se trata de construir un estilo propio.',bP:'Piezas con carácter para quien elige cada detalle. Conoce las novedades de la tienda.',bBtn:'Ver novedades',bImg:'',
 stT:'Pedir es simple',s1t:'Elige',s1d:'Explora y agrega tus piezas favoritas.',s2t:'Escríbenos',s2d:'Envía tu pedido por WhatsApp con un clic.',s3t:'Recíbelo',s3d:'Te lo enviamos a donde estés.',
