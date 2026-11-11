@@ -3,8 +3,8 @@ const U=(i,w=900)=>`https://images.unsplash.com/photo-${i}?auto=format&fit=crop&
 const FH=['Fraunces','Bodoni Moda','Playfair Display','Syne'],FB=['Manrope','DM Sans','Inter'];
 const D={brand:'JOYERÍA SGARCÍA',ini:'SG',logo:'',fav:'✦',wa:'573001234567',ig:'@joyeria_sgarcia',mail:'contacto@joyeriasgarcia.com',addr:'Barranquilla, Colombia',hrs:'Lun–Sáb · 9am – 7pm',wMsg:'Hola, quiero información sobre sus joyas.',
 ann:'JOYERÍA SGARCÍA · ORO · ELEGANCIA · DISTINCIÓN',marq:'JOYERÍA SGARCÍA ✦ ORO Y ELEGANCIA ✦ PIEZAS PARA TRASCENDER ✦ DISTINCIÓN EN CADA DETALLE ✦ ',
-hEye:'JOYERÍA SGARCÍA · ORO · ELEGANCIA · DISTINCIÓN',hT:'Carácter que|se lleva puesto.',hP:'Joyería con presencia. Piezas de líneas firmes, acabados dorados y diseño atemporal para hombres que cuidan cada detalle.',hB1:'Descubrir la colección',hB2:'Conócenos',hImg:U('1611652022419-a9419f74343d',1500),
-n1:'+2.000',l1:'clientes satisfechos',n2:'48 h',l2:'despacho',n3:'100%',l3:'brillo garantizado',
+hEye:'JOYERÍA SGARCÍA · ORO · ELEGANCIA · DISTINCIÓN',hT:'El carácter está|en los detalles.',hP:'Joyería masculina con presencia. Cadenas, pulseras, anillos y dijes con líneas firmes, acabados dorados y carácter propio.',hB1:'Descubrir la colección',hB2:'Conócenos',hImg:U('1611652022419-a9419f74343d',1500),
+n1:'SG',l1:'identidad propia',n2:'Oro',l2:'acabados dorados',n3:'Diseño',l3:'masculino',
 cEye:'EL ARTE DE DISTINGUIR',cT:'Colecciones con carácter',cP:'Diseño contundente, materiales seleccionados y detalles que marcan la diferencia.',fEye:'SELECCIÓN SG',fT:'Piezas extraordinarias',fP:'Una selección de piezas con identidad, presencia y acabado impecable.',
 bEye:'EDICIÓN LIMITADA',bT:'Una presencia que no necesita presentación',bP:'Acabados duraderos y diseños que combinan con todo. Descubre las novedades de la temporada.',bBtn:'Ver novedades',bImg:U('1515562141207-7a88fb7ce338',1600),
 stT:'Pedir es muy fácil',s1t:'Elige',s1d:'Explora y agrega tus piezas favoritas.',s2t:'Escríbenos',s2d:'Envía tu pedido por WhatsApp con un clic.',s3t:'Recíbelo',s3d:'Te lo enviamos a la puerta de tu casa.',
@@ -14,7 +14,7 @@ qT:'Preguntas frecuentes',q1:'¿De qué material son las joyas?',a1:'Son piezas 
 kT:'¿Te enamoraste de una pieza?',kP:'Escríbenos para consultar disponibilidad, materiales, envíos y formas de pago.',kB:'Consultar por WhatsApp',
 aT:'Una marca con carácter',aP:'Diseño, precisión y distinción en cada pieza.',aV:'Calidad|Diseño|Cercanía',fd:'Joyas y accesorios para acompañar tu brillo.',
 gold:'#d6a64b',ink:'#f1e6d2',paper:'#080807',cream:'#15120e',rose:'#21180f',fh:FH[1],fb:FB[2],rad:'26',trans:'curtain',fx:'1',
-sh_mq:'1',sh_cl:'1',sh_ft:'1',sh_bn:'1',sh_st:'1',sh_sy:'1',sh_ts:'1',sh_fq:'1',sh_ck:'1'};
+sh_mq:'1',sh_cl:'1',sh_ft:'1',sh_bn:'1',sh_st:'1',sh_sy:'1',sh_ts:'0',sh_fq:'1',sh_ck:'1'};
 const DP=[[1,'Pulsera Eslabón Cubano','Pulseras',89000,'Eslabones definidos y acabado dorado de gran presencia.','1611652022419-a9419f74343d','Destacado','grumet'],[2,'Cadena Figaro','Cadenas',109000,'Diseño clásico de eslabones alternados y presencia elegante.','1599643478518-a784e5dc4c8f','Nuevo','cadena'],[3,'Anillo Sello','Anillos',79000,'Silueta sólida y carácter atemporal.','1605100804763-247f67b3557e','','sello'],[4,'Dije Geométrico','Dijes',59000,'Un detalle de líneas limpias para completar tu cadena.','1535632066927-ab7c9ab60908','','dije'],[5,'Pulsera Placa','Pulseras',85000,'Volumen equilibrado y acabado dorado pulido.','1573408301185-9146fe634ad0','','pulsera'],[6,'Cadena Eslabón Grueso','Cadenas',129000,'Una pieza protagonista de estilo urbano y sofisticado.','1611591437281-460bfbe1220a','','cadena'],[7,'Anillo Signet','Anillos',89000,'Volumen arquitectónico y presencia discreta.','1603561596112-0a132b757442','','sello'],[8,'Medalla Clásica','Dijes',69000,'Dije de inspiración clásica con acabado brillante.','1630019852942-f89202989a59','','moneda']].map(([id,name,cat,price,desc,i,tag,shape])=>({id,name,cat,price,old:'',desc,img:U(i,1100),img2:'',tag,shape,stock:'10',det:'Oro laminado|Acabado brillante|Diseño atemporal',active:true}));
 const DC=[['Pulseras','Eslabones con carácter','1573408301185-9146fe634ad0'],['Cadenas','Presencia y diseño','1599643478518-a784e5dc4c8f'],['Anillos','Diseño atemporal','1605100804763-247f67b3557e'],['Dijes','Detalles distintivos','1535632066927-ab7c9ab60908']].map(([name,desc,i],k)=>({id:k+1,name,desc,img:U(i,800)}));
 const ld=(k,d)=>{try{return JSON.parse(localStorage[k])}catch(e){return JSON.parse(JSON.stringify(d))}};
@@ -33,7 +33,7 @@ const act=()=>P.filter(p=>p.active!==false);
 const card=p=>`<a class="pc rv" href="#/producto/${p.id}"><div class="pi">${im(p.img)}${p.img2?im(p.img2,'h'):''}${p.tag?`<i class="tg">${E(p.tag)}</i>`:''}<button class="qa" onclick="event.preventDefault();add(${p.id})">+ Agregar al pedido</button></div><div class="pn"><small>${E(p.cat)}</small><h3>${E(p.name)}</h3><b>${$$(p.price)}${p.old?`<s>${$$(p.old)}</s>`:''}</b></div></a>`;
 const hd=(e,t,p,x='')=>`<div class="hd rv"><div><div class="ey">${E(e)}</div><h2>${E(t)}</h2></div><p>${E(p)}</p>${x}</div>`;
 const cLink=c=>`<a class="cl rv" href="#/coleccion/${c.id}">${im(c.img)}<span>↗</span><div><small>${act().filter(p=>p.cat==c.name).length} piezas</small><h3>${E(c.name)}</h3><small>${E(c.desc)}</small></div></a>`;
-function home(){const on=k=>S['sh_'+k]=='1';return `<section class="hero"><div class="bg" style="background-image:url('${E(S.hImg)}')"></div><div class="w"><div><div class="ey">${E(S.hEye)}</div><h1>${ttl(S.hT)}</h1><p>${E(S.hP)}</p><div style="display:flex;gap:12px;margin-top:30px;flex-wrap:wrap"><a class="btn" href="#/tienda">${E(S.hB1)} ↗</a><a class="btn o" href="#/nosotros">${E(S.hB2)}</a></div><div class="st">${[1,2,3].map(i=>`<div><b>${E(S['n'+i])}</b><span>${E(S['l'+i])}</span></div>`).join('')}</div></div><canvas class="cv3" id="hv" style="background-image:url('${E(S.hImg)}')"></canvas></div></section>`+
+function home(){const on=k=>k==='ts'?false:S['sh_'+k]=='1';return `<section class="hero"><div class="bg" style="background-image:url('${E(S.hImg)}')"></div><div class="w"><div><div class="ey">${E(S.hEye)}</div><h1>${ttl(S.hT)}</h1><p>${E(S.hP)}</p><div style="display:flex;gap:12px;margin-top:30px;flex-wrap:wrap"><a class="btn" href="#/tienda">${E(S.hB1)} ↗</a><a class="btn o" href="#/nosotros">${E(S.hB2)}</a></div><div class="st">${[1,2,3].map(i=>`<div><b>${E(S['n'+i])}</b><span>${E(S['l'+i])}</span></div>`).join('')}</div></div><canvas class="cv3" id="hv" style="background-image:url('${E(S.hImg)}')"></canvas></div></section>`+
 (on('mq')?`<div class="mq"><div>${(S.marq.repeat(8))}</div></div>`:'')+
 (on('cl')?`<section class="sec"><div class="w">${hd(S.cEye,S.cT,S.cP)}<div class="gc">${C.map(cLink).join('')}</div></div></section>`:'')+
 (on('ft')?`<section class="sec cr"><div class="w">${hd(S.fEye,S.fT,S.fP,'<a class="btn o" href="#/tienda">Ver todo</a>')}<div class="gp">${act().slice(0,8).map(card).join('')}</div></div></section>`:'')+
@@ -57,6 +57,41 @@ const contact=()=>ph('CONTACTO',S.kT,S.kP)+`<section class="sec"><div class="w s
 function add(id){const x=K.find(k=>k.id==id);x?x.q++:K.push({id,q:1});sv();shell();dr(1);tt('Agregado al pedido')}
 function qty(id,d){const x=K.find(k=>k.id==id);x.q+=d;K=K.filter(k=>k.q>0);sv();shell();dr(1)}
 function dr(o){const d=$('#dr');if(!o){d.classList.remove('on');return}const l=K.map(k=>({...P.find(p=>p.id==k.id),q:k.q})).filter(p=>p.name),t=l.reduce((a,p)=>a+p.price*p.q,0);d.innerHTML=`<div style="display:flex;justify-content:space-between"><h3 class="fh" style="font-size:32px">Mi pedido</h3><button class="ic" onclick="dr(0)">✕</button></div>${l.map(p=>`<div class="ci">${im(p.img)}<div><b>${E(p.name)}</b><br>${$$(p.price)}</div><button onclick="qty(${p.id},-1)">−</button>${p.q}<button onclick="qty(${p.id},1)">+</button></div>`).join('')||'<p>Aún no hay piezas.</p>'}<h3 class="fh" style="font-size:28px">Total ${$$(t)}</h3><button class="btn" style="justify-content:center" onclick="wa('Hola, quiero pedir:\\n'+K.map(k=>{const p=P.find(x=>x.id==k.id);return '• '+k.q+' x '+p.name+' ('+$$(p.price*k.q)+')'}).join('\\n')+'\\nTotal: '+$$(${t}))">Enviar pedido por WhatsApp ↗</button>`;d.classList.add('on')}
+
+/* Logo 3D: usa la imagen de marca exacta configurada en el panel. */
+function logo3d(cv){
+ if(!window.THREE||!S.logo){s3(cv,'',1);return}
+ const T=THREE,renderer=new T.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+ renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.7));
+ const scene=new T.Scene(),camera=new T.PerspectiveCamera(34,1,.1,100),group=new T.Group();
+ camera.position.set(0,0,8);scene.add(group);
+ scene.add(new T.AmbientLight(0xffffff,1.4));
+ const gold=new T.PointLight(0xe7bd70,95,30);gold.position.set(3,4,5);scene.add(gold);
+ const warm=new T.PointLight(0x9d6724,65,25);warm.position.set(-4,-2,4);scene.add(warm);
+ const backing=new T.Mesh(new T.CylinderGeometry(2.25,2.25,.16,96),new T.MeshStandardMaterial({color:0x17120a,metalness:.9,roughness:.24}));
+ backing.rotation.x=Math.PI/2;group.add(backing);
+ const rim=new T.Mesh(new T.TorusGeometry(2.17,.065,18,120),new T.MeshStandardMaterial({color:0xd9b56f,metalness:1,roughness:.16}));
+ group.add(rim);
+ const loader=new T.TextureLoader();loader.setCrossOrigin('anonymous');
+ loader.load(S.logo,tex=>{
+   tex.colorSpace=T.SRGBColorSpace;
+   const mat=new T.MeshBasicMaterial({map:tex,transparent:true,side:T.DoubleSide,depthWrite:false});
+   const plane=new T.Mesh(new T.PlaneGeometry(4.05,4.05),mat);plane.position.z=.13;group.add(plane);
+ },undefined,()=>{cv.classList.add('logo3d-fallback')});
+ let down=false,last=0,drag=0;cv.addEventListener('pointerdown',e=>{down=true;last=e.clientX;cv.setPointerCapture?.(e.pointerId)});
+ cv.addEventListener('pointerup',()=>down=false);cv.addEventListener('pointercancel',()=>down=false);
+ cv.addEventListener('pointermove',e=>{if(down){drag+=(e.clientX-last)*.008;last=e.clientX}});
+ const clock=new T.Clock();
+ (function frame(){
+   if(!cv.isConnected){renderer.dispose();return}
+   requestAnimationFrame(frame);
+   const w=Math.max(1,cv.clientWidth),h=Math.max(1,cv.clientHeight);
+   if(cv._w!==w||cv._h!==h){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();cv._w=w;cv._h=h}
+   const t=clock.getElapsedTime();group.rotation.y=Math.sin(t*.45)*.24+drag;group.rotation.x=Math.sin(t*.6)*.08;
+   group.position.y=Math.sin(t*1.1)*.12;renderer.render(scene,camera);
+ })();
+}
+
 /* 3D */
 function s3(cv,shape,hero){if(!window.THREE||S.fx!='1'){cv.style.display='none';return}const T=THREE,r=new T.WebGLRenderer({canvas:cv,alpha:true,antialias:true}),sc=new T.Scene(),cm=new T.PerspectiveCamera(38,1,.1,100),g=new T.Group();cm.position.z=hero?8.5:6.5;sc.add(g,new T.AmbientLight(0xffffff,1.6));[[0xffc65a,115,3,4,5],[0xffe5a0,85,-4,-1,3],[0x8f682e,45,1,-4,2]].forEach(([c,i,x,y,z])=>{const l=new T.PointLight(c,i);l.position.set(x,y,z);sc.add(l)});
 const M=(c,o)=>new T.MeshStandardMaterial({color:c,metalness:1,roughness:o}),G=M(0xffdf86,.15),G2=M(0xd9a83f,.22),GM=new T.MeshPhysicalMaterial({color:0xf7e4ae,roughness:.05,clearcoat:1}),A=(geo,m,x=0,y=0,z=0,rx=0)=>{const o=new T.Mesh(geo,m);o.position.set(x,y,z);o.rotation.x=rx;g.add(o);return o};
@@ -92,7 +127,7 @@ const rv=()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isInters
 function route(q2){const[,r,a]=(location.hash||'#/').slice(1).split('/');dr(0);const A=$('#app');$('#ft').style.display=r=='admin'?'none':'';
 if(r=='admin'){ses?adm():login();return}
 A.innerHTML=r=='tienda'?shop():r=='coleccion'?shop(a):r=='producto'?prod(a):r=='nosotros'?about():r=='contacto'?contact():home();
-if(r=='tienda'||r=='coleccion')lst();const h=$('#hv'),p=$('#pv');if(h)s3(h,'',1);if(p)s3(p,(P.find(x=>x.id==a)||{}).shape);rv()}
+if(r=='tienda'||r=='coleccion')lst();const h=$('#hv'),p=$('#pv');if(h){if(S.logo)logo3d(h);else s3(h,'',1)}if(p)s3(p,(P.find(x=>x.id==a)||{}).shape);rv()}
 let lh=null;addEventListener('hashchange',()=>{const c=$('#ct'),A=$('#app');if(S.trans=='none'||ses&&location.hash=='#/admin'){route();scrollTo(0,0);return}if(S.trans=='fade'){A.classList.add('fd');setTimeout(()=>{route();scrollTo(0,0);A.classList.remove('fd')},400);return}c.innerHTML=E(S.brand);c.className='in';setTimeout(()=>{route();scrollTo(0,0);c.className='out';setTimeout(()=>c.className='',520)},560)});
 addEventListener('pointermove',e=>{const g=$('#gl');g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';const c=e.target.closest?.('.pc');if(c){const b=c.getBoundingClientRect();c.style.setProperty('--ry',((e.clientX-b.left)/b.width-.5)*8+'deg');c.style.setProperty('--rx',-((e.clientY-b.top)/b.height-.5)*8+'deg')}});
 addEventListener('pointerout',e=>{const c=e.target.closest?.('.pc');if(c){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
