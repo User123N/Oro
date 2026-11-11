@@ -29,7 +29,7 @@ window.logo3d = function (box) {
     let visible=false,lastRender=0,widthNow=0,heightNow=0;const clock=new T.Clock();
     const render=now=>{
       raf=0;if(disposed||!visible||document.hidden||!cv.isConnected)return;
-      if(now-lastRender<32){raf=requestAnimationFrame(render);return;}lastRender=now;
+      if(now-lastRender<40){raf=requestAnimationFrame(render);return;}lastRender=now;
       const w=box.clientWidth,h=box.clientHeight;
       if(w!==widthNow||h!==heightNow){widthNow=w;heightNow=h;renderer.setSize(w,h,false);camera.aspect=w/Math.max(1,h);camera.fov=w/Math.max(1,h)<.9?38:30;camera.updateProjectionMatrix();}
       const t=clock.getElapsedTime();
