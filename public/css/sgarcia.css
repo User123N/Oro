@@ -175,3 +175,59 @@ footer a:hover{color:var(--ch)!important}
 .hero .w{padding-block:30px}
 @media(max-width:900px){.hero{padding-top:120px}}
 .tt{top:auto!important;right:auto!important;bottom:26px;left:50%;transform:translateX(-50%);z-index:300;font-family:var(--fs);font-weight:500;letter-spacing:.06em}
+
+
+/* ===== ONE UI INSPIRED FINISH — SGARCÍA ===== */
+:root{--r:28px!important;--gold:#d8b66f!important;--au:#d8b66f!important;--ch:#f1dfb9!important;--ink:#f3ecdf!important;--paper:#080807!important;--c1:#11100e!important;--c2:#1b1812!important}
+header{top:10px!important;width:calc(100% - 28px)!important;border-radius:30px!important;background:rgba(17,16,14,.76)!important;border:1px solid #ebd3a42e!important;box-shadow:0 18px 55px #0008,inset 0 1px #ffffff12!important;backdrop-filter:blur(30px) saturate(1.35)!important}
+.nv{min-height:78px!important}
+.lm{border-radius:50%!important;background:transparent!important;box-shadow:none!important}
+.brand-mark{object-fit:contain!important;filter:drop-shadow(0 0 18px #d9b56f55)!important}
+.brand-word{letter-spacing:.12em!important}
+.btn,.btn.o,.ch,.sb,.qa,.ic,.pd-thumb,.wa,.ad nav button{border-radius:16px!important}
+.btn{letter-spacing:.03em!important;text-transform:none!important}
+.btn.o{background:#ffffff0d!important;backdrop-filter:blur(18px)!important}
+.sec{padding:clamp(68px,8vw,112px) 0!important}
+.hd{margin-bottom:40px!important}
+.hd h2,.hero h1,.ph h1,.pd-info h1{font-family:var(--fs)!important;font-weight:650!important;letter-spacing:-.055em!important}
+.pc{border-radius:28px!important;background:rgba(255,255,255,.045)!important;border:1px solid #ffffff18!important;backdrop-filter:blur(22px)!important;box-shadow:0 16px 44px #0007!important}
+.pc:hover{border-color:#d8b66f77!important;transform:translateY(-5px)!important}
+.pi{border-radius:21px!important}
+.pn{padding:18px 16px 20px!important}
+.pn h3{font-family:var(--fs)!important;font-size:1.18rem!important;letter-spacing:-.025em!important}
+.pn b{border-radius:13px!important;background:#d8b66f18!important;border:1px solid #d8b66f33!important}
+.cl,.stp,.tq,.pd-main-frame,.pd-3d{border-radius:28px!important}
+.stp,.tq{background:rgba(255,255,255,.045)!important;border:1px solid #ffffff18!important;backdrop-filter:blur(22px)!important}
+.bar input,.bar select,.fi,.fd2 input,.fd2 textarea,.fd2 select{border-radius:16px!important;background:#ffffff09!important;border:1px solid #ffffff20!important}
+.ch{border-radius:14px!important}
+.dr{border-radius:30px 0 0 30px!important;background:#0d0c0bed!important;backdrop-filter:blur(30px)!important}
+.ci img{border-radius:16px!important}
+.ad nav{border-radius:26px!important}
+.ad nav button{border-radius:14px!important}
+.rw{border-radius:20px!important}
+footer{border-radius:34px 34px 0 0!important}
+@media(max-width:900px){
+ .nl{display:flex!important;max-width:58vw;overflow-x:auto;gap:14px!important;scrollbar-width:none}
+ .nl::-webkit-scrollbar{display:none}
+ .nl a{white-space:nowrap;font-size:.68rem!important}
+ .pd{grid-template-columns:1fr!important}
+ .pd-info{position:static!important}
+}
+@media(max-width:600px){
+ header{width:calc(100% - 14px)!important;border-radius:22px!important}
+ .nv{height:auto!important;min-height:62px!important;flex-wrap:wrap;padding:8px 10px!important;gap:8px!important}
+ .brand-word{font-size:.78rem!important;letter-spacing:.07em!important}
+ .lm{width:44px!important;height:44px!important}
+ .nl{order:3;width:100%;max-width:none!important;padding:4px 2px 7px}
+ .hero{padding-top:125px!important}
+ .hero .cv3{height:290px!important}
+ .gp{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .pc{border-radius:20px!important}
+ .pi{border-radius:15px!important}
+ .pn{padding:12px 9px 14px!important}
+ .pn h3{font-size:.95rem!important}
+ .pd-main-frame{min-height:350px!important;height:100vw!important}
+ .pd-actions .btn{min-width:100%!important}
+ .wa{right:12px!important;bottom:12px!important}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero .cv3{animation:none!important}}
