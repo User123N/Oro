@@ -19,7 +19,7 @@ window.logo3d = function (box) {
     const geo = new T.PlaneGeometry(W, H), N = 14, gap = .03;
     // Capas traseras: mismo contorno, tono oro oscuro, forman el canto metálico.
     for (let i = N; i >= 1; i--) {
-      const k = i / N, m = new T.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: .5, color: new T.Color().setRGB(.55 - .25 * k, .36 - .2 * k, .12 - .08 * k) });
+      const k = i / N, m = new T.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: .5, color: new T.Color().setRGB(.55 - .25 * k, .36 - .2 * k, .12 - .08 * k), side: T.DoubleSide });
       const p = new T.Mesh(geo, m); p.position.z = -i * gap; g.add(p);
     }
     // Cara frontal con la textura original sin tintar.
@@ -48,8 +48,18 @@ window.logo3d = function (box) {
     halo.scale.set(W * 1.7, W * 1.7, 1); halo.position.z = -N * gap - .3; g.add(halo);
 
     box.classList.add('gl-on'); // oculta la imagen estática solo cuando el 3D ya está listo
-    let mx = 0, my = 0, tx = 0, ty = 0, vis = true;
-    addEventListener('pointermove', e => { tx = (e.clientX / innerWidth - .5) * 2; ty = (e.clientY / innerHeight - .5) * 2 }, { passive: true });
+    // Interacción: arrastrar gira el emblema (inercia); en reposo vuelve a su posición frontal.
+    let mx = 0, my = 0, tx = 0, ty = 0, vis = true, dg = 0, lx = 0, ly = 0, ry = 0, rx = 0, vy = 0, idle = 0;
+    const TAU = Math.PI * 2, hint = box.querySelector('.lh-hint');
+    box.addEventListener('pointerdown', e => { dg = 1; lx = e.clientX; ly = e.clientY; box.setPointerCapture(e.pointerId); box.classList.add('grab'); if (hint) hint.style.opacity = 0 });
+    const up = () => { dg = 0; idle = performance.now() + 2400; box.classList.remove('grab') };
+    box.addEventListener('pointerup', up); box.addEventListener('pointercancel', up);
+    box.addEventListener('dblclick', () => { vy = .32 }); // vuelta completa
+    addEventListener('pointermove', e => {
+      const b = box.getBoundingClientRect();
+      tx = ((e.clientX - b.left) / b.width - .5) * 2; ty = ((e.clientY - b.top) / b.height - .5) * 2;
+      if (dg) { vy = (e.clientX - lx) * .012; ry += vy; rx = Math.max(-.7, Math.min(.7, rx + (e.clientY - ly) * .008)); lx = e.clientX; ly = e.clientY }
+    }, { passive: true });
     new IntersectionObserver(es => vis = es[0].isIntersecting).observe(box);
     const clock = new T.Clock();
     (function f() {
@@ -58,14 +68,18 @@ window.logo3d = function (box) {
       if (!vis || document.hidden) return;
       const t = clock.getElapsedTime(), w = box.clientWidth, h = box.clientHeight;
       if (cv._w != w || cv._h != h) { r.setSize(w, h, false); cm.aspect = w / h; cm.fov = w / h < .9 ? 38 : 30; cm.updateProjectionMatrix(); cv._w = w; cv._h = h }
-      mx += (tx - mx) * .06; my += (ty - my) * .06;
+      if (!dg) {
+        ry += vy; vy *= .94;
+        if (Math.abs(vy) < .004 && performance.now() > idle) { ry += (Math.round(ry / TAU) * TAU - ry) * .035; rx *= .95 }
+      }
+      mx += (tx - mx) * .07; my += (ty - my) * .07;
       const fl = reduce ? 0 : 1;
       g.position.y = Math.sin(t * .9) * .14 * fl;
-      g.rotation.y = Math.sin(t * .35) * .16 * fl + mx * .32;
-      g.rotation.x = Math.sin(t * .5) * .04 * fl + my * .16;
+      g.rotation.y = ry + Math.sin(t * .35) * .16 * fl + mx * .32;
+      g.rotation.x = rx + Math.sin(t * .5) * .04 * fl + my * .16;
       g.position.x = mx * .12;
-      sh.offset.x = reduce ? 0 : ((t * .16) % 1.6) - .8;
-      box.style.setProperty('--fy', (Math.sin(t * .9) * fl).toFixed(3));
+      // el reflejo recorre el emblema y reacciona al cursor y al giro
+      sh.offset.x = (reduce ? 0 : ((t * .16) % 1.6) - .8) + mx * .35 + Math.sin(ry) * .4;
       r.render(sc, cm);
     })();
   }, undefined, () => { /* si la textura falla se mantiene la imagen estática */ });
