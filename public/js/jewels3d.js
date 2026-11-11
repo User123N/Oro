@@ -5,8 +5,8 @@ window.jewel3d = function (cv, shape) {
   const T = window.THREE;
   if (!T || !cv) return;
   let r;
-  try { r = new T.WebGLRenderer({ canvas: cv, alpha: true, antialias: true }); } catch (e) { cv.style.display = 'none'; return; }
-  r.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  try { r = new T.WebGLRenderer({ canvas: cv, alpha: true, antialias: false, powerPreference: 'low-power' }); } catch (e) { cv.style.display = 'none'; return; }
+  r.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
   r.toneMapping = T.ACESFilmicToneMapping; r.toneMappingExposure = 1.05;
   const sc = new T.Scene(), cm = new T.PerspectiveCamera(32, 1, .1, 50), g = new T.Group();
   cm.position.set(0, 0, 9); sc.add(g);
@@ -16,7 +16,7 @@ window.jewel3d = function (cv, shape) {
   es.add(new T.Mesh(new T.SphereGeometry(20, 32, 16), new T.MeshBasicMaterial({ color: 0x0b0907, side: T.BackSide })));
   const soft = (w, h, x, y, z, c, k) => { const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: new T.Color(c).multiplyScalar(k), side: T.DoubleSide })); m.position.set(x, y, z); m.lookAt(0, 0, 0); es.add(m); };
   soft(12, 5, 0, 10, 2, 0xfff0cf, 5); soft(3, 12, -10, 0, 3, 0xffe1a0, 4); soft(3, 12, 10, 0, -2, 0xffd48a, 3); soft(14, 3, 0, -8, 4, 0x8a5a1c, 1.5); soft(6, 6, 0, 2, 12, 0xffffff, 2);
-  const pm = new T.PMREMGenerator(r); sc.environment = pm.fromScene(es, .03).texture;
+  const pmrg = new T.PMREMGenerator(r); const pm = pmrg.fromScene(es, .03).texture; sc.environment = pm;
 
   const gold = new T.MeshStandardMaterial({ color: 0xe0b25a, metalness: 1, roughness: .2, envMapIntensity: 1.25 });
   const dark = new T.MeshStandardMaterial({ color: 0xa8742a, metalness: 1, roughness: .38, envMapIntensity: 1 });
@@ -96,7 +96,7 @@ window.jewel3d = function (cv, shape) {
   new IntersectionObserver(es2 => vis = es2[0].isIntersecting).observe(cv);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, clock = new T.Clock();
   (function f() {
-    if (!cv.isConnected) { r.dispose(); pm.dispose(); return }
+    if (!cv.isConnected) { r.dispose(); pm.dispose(); pmrg.dispose(); return }
     requestAnimationFrame(f); if (!vis || document.hidden) return;
     const t = clock.getElapsedTime(), w = cv.clientWidth, h = cv.clientHeight;
     if (cv._w != w || cv._h != h) { r.setSize(w, h, false); cm.aspect = w / h; cm.updateProjectionMatrix(); cv._w = w; cv._h = h }
