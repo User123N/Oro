@@ -278,3 +278,70 @@ footer{border-radius:0;background:linear-gradient(180deg,#12100d,#070706)}
  .pd-info h1{font-size:42px}
  .pd-actions .btn{min-width:100%}
 }
+
+
+/* One UI-inspired SGARCÍA design system */
+:root{
+  --r:28px!important;
+  --gold:#d8b66f!important;
+  --ink:#f3ecdf!important;
+  --paper:#080807!important;
+  --cream:#14120f!important;
+  --rose:#211b12!important;
+  --gd:#e8c985!important;
+}
+html{scroll-behavior:smooth;scroll-padding-top:112px}
+body{background:#080807!important;color:#f3ecdf!important}
+header{
+  top:10px!important;width:calc(100% - 28px)!important;
+  border-radius:30px!important;background:rgba(17,16,14,.76)!important;
+  border:1px solid rgba(235,211,164,.18)!important;
+  box-shadow:0 18px 55px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.07)!important;
+  backdrop-filter:blur(30px) saturate(1.35)!important;
+}
+.nv{min-height:78px!important}
+.lm{background:transparent!important;border:0!important;box-shadow:none!important}
+.brand-mark{object-fit:contain!important;filter:drop-shadow(0 0 18px #d9b56f55)!important}
+.brand-word{letter-spacing:.13em!important;color:#f2e4c8!important}
+.nl a{font-size:11px!important;letter-spacing:.08em!important}
+.sec{padding:clamp(68px,8vw,112px) 0!important}
+.hd{margin-bottom:38px!important}
+.hd h2{font-family:var(--fb)!important;font-weight:650!important;letter-spacing:-.055em!important;line-height:1.02!important}
+.hero h1,.ph h1,.pd-info h1{font-family:var(--fb)!important;font-weight:650!important;letter-spacing:-.06em!important}
+.hero{background:#090908!important}
+.hero .cv3{border-radius:34px!important;border:1px solid #d9b56f35!important;box-shadow:0 28px 85px #000a,0 0 38px #d9b56f16!important}
+.btn,.btn.o,.ch,.sb,.qa,.ic,.pd-thumb,.wa{border-radius:16px!important}
+.btn{font-family:var(--fb)!important;font-weight:650!important;letter-spacing:.02em!important;text-transform:none!important}
+.btn.o{background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.14)!important;backdrop-filter:blur(18px)!important}
+.pc{padding:8px!important;border-radius:28px!important;background:rgba(255,255,255,.045)!important;border:1px solid rgba(255,255,255,.09)!important;box-shadow:0 16px 44px rgba(0,0,0,.28)!important;backdrop-filter:blur(22px)!important}
+.pc:hover{border-color:rgba(217,181,111,.42)!important;transform:translateY(-5px)!important}
+.pi{border-radius:21px!important;background:linear-gradient(145deg,#242018,#100f0c)!important}
+.pn{padding:17px 13px 13px!important}
+.pn h3{font-family:var(--fb)!important;font-weight:620!important;letter-spacing:-.035em!important}
+.pn b{border-radius:13px!important;background:rgba(217,181,111,.12)!important;border:1px solid rgba(217,181,111,.2)!important}
+.cl{border-radius:28px!important}
+.stp,.tq{border-radius:26px!important;background:rgba(255,255,255,.045)!important;border:1px solid rgba(255,255,255,.1)!important;box-shadow:0 18px 48px rgba(0,0,0,.26)!important;backdrop-filter:blur(22px)!important}
+.bar input,.bar select,.fi,.fd2 input,.fd2 textarea,.fd2 select{border-radius:16px!important;background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.13)!important;color:#f4ecdf!important}
+.ch{background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.12)!important}
+.ch.on,.ch:hover{background:#d9b56f!important;color:#100d08!important}
+.dr{background:rgba(15,14,12,.96)!important;border-left:1px solid rgba(217,181,111,.2)!important;border-radius:30px 0 0 30px!important;backdrop-filter:blur(30px)!important}
+footer{background:#0d0c0a!important;border-top:1px solid rgba(217,181,111,.16)!important}
+@media(max-width:900px){
+  header{width:calc(100% - 20px)!important}
+  .nl{display:flex!important;overflow-x:auto;max-width:58vw;gap:14px!important;scrollbar-width:none}
+  .nl::-webkit-scrollbar{display:none}
+  .nl a{white-space:nowrap;font-size:9px!important}
+}
+@media(max-width:600px){
+  header{width:calc(100% - 14px)!important;border-radius:22px!important}
+  .nv{min-height:62px!important;height:auto!important;padding:8px 10px!important;gap:8px!important}
+  .brand-word{font-size:11px!important;letter-spacing:.08em!important}
+  .lm{width:42px!important;height:42px!important}
+  .nl{order:3;width:100%;max-width:none!important;padding:4px 2px 7px;gap:18px!important}
+  .nl a{font-size:9px!important}
+  .hero h1{font-size:clamp(52px,13vw,78px)!important}
+  .hero .cv3{height:290px!important}
+  .pc{border-radius:20px!important}
+  .pi{border-radius:15px!important}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero .cv3{animation:none!important}}
