@@ -231,3 +231,15 @@ footer{border-radius:34px 34px 0 0!important}
  .wa{right:12px!important;bottom:12px!important}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero .cv3{animation:none!important}}
+
+
+/* Logo SG: movimiento autónomo, sin cursor ni instrucciones de arrastre. */
+.lh{cursor:default!important;touch-action:auto!important}
+.lh-hint{display:none!important}
+.lh .lh-fb{animation:sgLogoFloat 6s ease-in-out infinite,sgLogoTurn 24s linear infinite!important;transform-style:preserve-3d;backface-visibility:hidden}
+@keyframes sgLogoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+@keyframes sgLogoTurn{0%{rotate: y 0deg}100%{rotate:y 360deg}}
+/* Mantiene el acabado premium, pero evita trabajo visual innecesario fuera de pantalla. */
+@supports(content-visibility:auto){.sec,.bn,footer{content-visibility:auto;contain-intrinsic-size:auto 760px}}
+img{height:auto}
+@media(prefers-reduced-motion:reduce){.lh .lh-fb{animation:none!important}}
