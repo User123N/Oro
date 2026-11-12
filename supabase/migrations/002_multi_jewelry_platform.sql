@@ -49,8 +49,12 @@ create index if not exists jewelry_tenants_status_created_idx on public.jewelry_
 create index if not exists jewelry_domains_tenant_idx on public.jewelry_domains(tenant_id);
 create index if not exists jewelry_store_data_tenant_idx on public.jewelry_store_data(tenant_id);
 
-create or replace function public.is_platform_admin()
-returns boolean language sql stable security definer set search_path = public
+create schema if not exists private;
+revoke all on schema private from public;
+grant usage on schema private to anon, authenticated;
+
+create or replace function private.is_platform_admin()
+returns boolean language sql stable security definer set search_path = ''
 as $$
   select exists (
     select 1 from public.platform_admins a
@@ -58,24 +62,27 @@ as $$
   );
 $$;
 
-create or replace function public.owns_jewelry(p_tenant_id uuid)
-returns boolean language sql stable security definer set search_path = public
+create or replace function private.owns_jewelry(p_tenant_id uuid)
+returns boolean language sql stable security definer set search_path = ''
 as $$
   select exists (
-    select 1 from public.jewelry_tenants t
-    where t.id = p_tenant_id and exists (
-      select 1 from public.jewelry_tenant_owners o
-      where o.tenant_id=t.id and lower(o.owner_email)=lower(coalesce(auth.jwt()->>'email',''))
-    )
+    select 1 from public.jewelry_tenant_owners o
+    where o.tenant_id = p_tenant_id
+      and lower(o.owner_email) = lower(coalesce(auth.jwt()->>'email',''))
   );
 $$;
+
+revoke all on function private.is_platform_admin() from public;
+revoke all on function private.owns_jewelry(uuid) from public;
+grant execute on function private.is_platform_admin() to anon, authenticated;
+grant execute on function private.owns_jewelry(uuid) to anon, authenticated;
 
 create or replace function public.resolve_jewelry_domain(p_domain text)
 returns table (
   tenant_id uuid, slug text, name text, brand_name text,
   description text, logo_url text, city text, status text
 )
-language sql stable security definer set search_path = public
+language sql stable security invoker set search_path = ''
 as $$
   select t.id,t.slug,t.name,t.brand_name,t.description,t.logo_url,t.city,t.status
   from public.jewelry_domains d
@@ -84,6 +91,8 @@ as $$
     and d.verified=true and t.status='active'
   limit 1;
 $$;
+revoke all on function public.resolve_jewelry_domain(text) from public;
+grant execute on function public.resolve_jewelry_domain(text) to anon, authenticated;
 
 alter table public.jewelry_tenants enable row level security;
 alter table public.platform_admins enable row level security;
@@ -93,7 +102,7 @@ alter table public.jewelry_store_data enable row level security;
 
 drop policy if exists "public active jewelry directory" on public.jewelry_tenants;
 create policy "public active jewelry directory" on public.jewelry_tenants
-for select using (status='active' or public.is_platform_admin() or public.owns_jewelry(id));
+for select using (status='active' or private.is_platform_admin() or private.owns_jewelry(id));
 
 drop policy if exists "platform admins manage jewelry tenants" on public.jewelry_tenants;
 create policy "platform admins manage jewelry tenants" on public.jewelry_tenants
@@ -138,8 +147,6 @@ grant insert, update, delete on public.jewelry_tenants, public.jewelry_domains, 
 grant insert, update, delete on public.jewelry_store_data to authenticated;
 grant select on public.platform_admins to authenticated;
 grant execute on function public.resolve_jewelry_domain(text) to anon, authenticated;
-grant execute on function public.is_platform_admin() to authenticated;
-grant execute on function public.owns_jewelry(uuid) to authenticated;
 
 -- IMPORTANTE: registra aquí el correo del propietario de la plataforma.
 -- insert into public.platform_admins(email) values ('TU_CORREO_ADMIN') on conflict do nothing;
