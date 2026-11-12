@@ -106,7 +106,7 @@ for select using (status='active' or private.is_platform_admin() or private.owns
 
 drop policy if exists "platform admins manage jewelry tenants" on public.jewelry_tenants;
 create policy "platform admins manage jewelry tenants" on public.jewelry_tenants
-for all to authenticated using (public.is_platform_admin()) with check (public.is_platform_admin());
+for all to authenticated using (private.is_platform_admin()) with check (private.is_platform_admin());
 
 drop policy if exists "platform admins read own admin row" on public.platform_admins;
 create policy "platform admins read own admin row" on public.platform_admins
@@ -114,11 +114,11 @@ for select to authenticated using (lower(email)=lower(coalesce(auth.jwt()->>'ema
 
 drop policy if exists "owners and platform admins read owner mapping" on public.jewelry_tenant_owners;
 create policy "owners and platform admins read owner mapping" on public.jewelry_tenant_owners
-for select to authenticated using (public.is_platform_admin() or lower(owner_email)=lower(coalesce(auth.jwt()->>'email','')));
+for select to authenticated using (private.is_platform_admin() or lower(owner_email)=lower(coalesce(auth.jwt()->>'email','')));
 
 drop policy if exists "platform admins manage owner mapping" on public.jewelry_tenant_owners;
 create policy "platform admins manage owner mapping" on public.jewelry_tenant_owners
-for all to authenticated using (public.is_platform_admin()) with check (public.is_platform_admin());
+for all to authenticated using (private.is_platform_admin()) with check (private.is_platform_admin());
 
 drop policy if exists "public resolve verified domains" on public.jewelry_domains;
 create policy "public resolve verified domains" on public.jewelry_domains
@@ -126,7 +126,7 @@ for select using (verified=true);
 
 drop policy if exists "platform admins manage domains" on public.jewelry_domains;
 create policy "platform admins manage domains" on public.jewelry_domains
-for all to authenticated using (public.is_platform_admin()) with check (public.is_platform_admin());
+for all to authenticated using (private.is_platform_admin()) with check (private.is_platform_admin());
 
 drop policy if exists "public read active store data" on public.jewelry_store_data;
 create policy "public read active store data" on public.jewelry_store_data
@@ -135,8 +135,8 @@ for select using (exists (select 1 from public.jewelry_tenants t where t.id=tena
 drop policy if exists "owners and platform admins manage store data" on public.jewelry_store_data;
 create policy "owners and platform admins manage store data" on public.jewelry_store_data
 for all to authenticated
-using (public.is_platform_admin() or public.owns_jewelry(tenant_id))
-with check (public.is_platform_admin() or public.owns_jewelry(tenant_id));
+using (private.is_platform_admin() or private.owns_jewelry(tenant_id))
+with check (private.is_platform_admin() or private.owns_jewelry(tenant_id));
 
 revoke select on public.jewelry_tenants from anon, authenticated;
 grant select (id,slug,name,brand_name,description,logo_url,city,status,created_at,updated_at) on public.jewelry_tenants to anon, authenticated;
