@@ -16,6 +16,12 @@ async function init(sb){
  try{const {data}=await client.from('jewelry_tenants').select('id').eq('status','active').limit(1);if(data?.length===1){} }catch(e){}
  return {tenant:null,platformHome:true};
 }
+async function openTenantBySlug(slug){
+ const {data,error}=await client.from('jewelry_tenants').select('id,slug,name,brand_name,description,logo_url,city,status').eq('slug',slug).eq('status','active').maybeSingle();
+ if(error)throw error;
+ if(!data)return false;
+ tenant={...data,tenant_id:data.id};platformHome=false;return true;
+}
 async function loadTenantData(){
  if(!tenant)return null;
  const {data,error}=await client.from('jewelry_store_data').select('data_key,data').eq('tenant_id',tenant.tenant_id);
@@ -28,7 +34,7 @@ async function saveTenantData(values){
  const {error}=await client.from('jewelry_store_data').upsert(rows,{onConflict:'tenant_id,data_key'});
  if(error)throw error;
 }
-function card(t){const tag=t.domain?'a':'article',href=t.domain?' href="https://'+esc(t.domain)+'"':'';return '<'+tag+' class="market-card"'+href+'><div class="market-logo">'+(t.logo_url?'<img src="'+esc(t.logo_url)+'" alt="">':'<span>✦</span>')+'</div><div class="market-card-copy"><small>'+esc(t.city||'JOYERÍA')+'</small><h3>'+esc(t.brand_name||t.name)+'</h3><p>'+esc(t.description||'Descubre su catálogo y colecciones.')+'</p><span>'+(t.domain?'Visitar tienda':'Dominio pendiente')+' <b>↗</b></span></div></'+tag+'>'}
+function card(t){const tag='a',href=t.domain?' href="https://'+esc(t.domain)+'"':' href="#/joyeria/'+esc(t.slug)+'"';return '<'+tag+' class="market-card"'+href+'><div class="market-logo">'+(t.logo_url?'<img src="'+esc(t.logo_url)+'" alt="">':'<span>✦</span>')+'</div><div class="market-card-copy"><small>'+esc(t.city||'JOYERÍA')+'</small><h3>'+esc(t.brand_name||t.name)+'</h3><p>'+esc(t.description||'Descubre su catálogo y colecciones.')+'</p><span>Visitar tienda <b>↗</b></span></div></'+tag+'>'}
 async function renderHome(){
  const root=document.querySelector('#app');if(!root)return;
  document.querySelector('#hd').innerHTML='<header class="market-header"><a href="#/" class="market-brand">ORO<span>✦</span></a><nav><a href="#/">Joyerías</a><a href="#/plataforma">Administrar</a></nav></header>';
@@ -66,5 +72,5 @@ async function renderAdmin(){
  root.querySelectorAll('[data-verify]').forEach(el=>el.onclick=async()=>{const domain=el.dataset.domain;if(!domain){alert('Primero agrega un dominio para esta joyería.');return}if(!confirm('Confirma que '+domain+' ya apunta a Netlify y que el certificado HTTPS está listo.'))return;const {error}=await client.from('jewelry_domains').update({verified:true}).eq('tenant_id',el.dataset.verify).eq('domain',domain);if(error){alert('No se pudo verificar: '+error.message);return}renderAdmin()});
  root.querySelectorAll('[data-delete]').forEach(el=>el.onclick=async()=>{if(!confirm('¿Eliminar esta joyería y sus datos? Esta acción no se puede deshacer.'))return;const {error}=await client.from('jewelry_tenants').delete().eq('id',el.dataset.delete);if(error){alert('No se pudo eliminar: '+error.message);return}renderAdmin()});
 }
-window.OroPlatform={init,loadTenantData,saveTenantData,get tenant(){return tenant},get platformHome(){return platformHome},renderHome,renderAdmin};
+window.OroPlatform={init,openTenantBySlug,loadTenantData,saveTenantData,get tenant(){return tenant},get platformHome(){return platformHome},renderHome,renderAdmin};
 })();
