@@ -103,3 +103,8 @@
  .pd-actions{grid-template-columns:1fr!important}
 }
 @media(prefers-reduced-motion:reduce){.market-card{transition:none!important}}
+
+.platform-store input{width:100%;max-width:190px;min-width:110px;background:#ffffff09;color:#f3ecdf;border:1px solid #ffffff24;border-radius:12px;padding:10px;font:inherit;font-size:.78rem}
+.platform-store input::placeholder{color:#8f8677}
+@media(max-width:900px){.platform-store{grid-template-columns:minmax(0,1fr) repeat(2,auto)}.platform-store [data-add-domain],.platform-store [data-verify],.platform-store [data-delete]{grid-row:2}.platform-store [data-add-domain]{grid-column:1}.platform-store [data-verify]{grid-column:2}.platform-store [data-delete]{grid-column:3}}
+@media(max-width:600px){.platform-store{grid-template-columns:minmax(0,1fr) auto;gap:8px}.platform-store>div{grid-column:1/-1}.platform-store select{grid-column:1;grid-row:auto;max-width:none}.platform-store [data-add-domain],.platform-store [data-verify],.platform-store [data-delete]{grid-column:auto;grid-row:auto}.platform-store input{max-width:none}.platform-store button{font-size:.72rem;padding:9px 10px}}
