@@ -48,4 +48,4 @@ Cada dominio debe agregarse también en el panel del proveedor de hosting (Netli
 
 ## Importante sobre la tienda SGarcía existente
 
-La tabla antigua `public.store` se conserva para evitar borrar datos. La migración no copia automáticamente esa información a una nueva joyería. Antes de vincular el dominio actual de SGarcía, hay que importar sus ajustes, productos y colecciones a su nuevo registro multi-tenant; no elimines la tabla antigua hasta comprobar que la nueva tienda muestra todo correctamente.
+La tabla antigua `public.store` se conserva para evitar borrar datos. Al crear la primera joyería desde el panel, ORO intenta importar automáticamente los ajustes, productos y colecciones de la tabla antigua `public.store`. Comprueba que la primera joyería sea SGarcía y que los productos aparezcan correctamente antes de eliminar o modificar la tabla antigua.
