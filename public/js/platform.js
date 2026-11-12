@@ -27,7 +27,7 @@ async function saveTenantData(values){
  const {error}=await client.from('jewelry_store_data').upsert(rows,{onConflict:'tenant_id,data_key'});
  if(error)throw error;
 }
-function card(t){return '<a class="market-card" href="'+(t.domain?'https://'+esc(t.domain):'javascript:void(0)')+'"><div class="market-logo">'+(t.logo_url?'<img src="'+esc(t.logo_url)+'" alt="">':'<span>✦</span>')+'</div><div class="market-card-copy"><small>'+esc(t.city||'JOYERÍA')}</small><h3>'+esc(t.brand_name||t.name)+'</h3><p>'+esc(t.description||'Descubre su catálogo y colecciones.')+'</p><span>Visitar tienda <b>↗</b></span></div></a>'}
+function card(t){return '<a class="market-card" href="'+(t.domain?'https://'+esc(t.domain):'javascript:void(0)')+'"><div class="market-logo">'+(t.logo_url?'<img src="'+esc(t.logo_url)+'" alt="">':'<span>✦</span>')+'</div><div class="market-card-copy"><small>'+esc(t.city||'JOYERÍA')+'</small><h3>'+esc(t.brand_name||t.name)+'</h3><p>'+esc(t.description||'Descubre su catálogo y colecciones.')+'</p><span>Visitar tienda <b>↗</b></span></div></a>'}
 async function renderHome(){
  const root=document.querySelector('#app');if(!root)return;
  root.innerHTML='<section class="market-hero"><div class="market-orb"></div><div class="market-wrap"><span class="market-eyebrow">ORO · MARKETPLACE</span><h1>Un universo de<br><em>joyerías.</em></h1><p>Descubre marcas, colecciones y piezas únicas. Cada joyería tiene su propio espacio.</p><div class="market-search"><input id="marketSearch" type="search" placeholder="Buscar una joyería o ciudad…"></div><div id="marketGrid" class="market-grid"><p>Cargando joyerías…</p></div></div></section>';
