@@ -113,7 +113,10 @@ for all to authenticated
 using (public.is_platform_admin() or public.owns_jewelry(tenant_id))
 with check (public.is_platform_admin() or public.owns_jewelry(tenant_id));
 
-grant select on public.jewelry_tenants, public.jewelry_domains, public.jewelry_store_data to anon, authenticated;
+revoke select on public.jewelry_tenants from anon;
+grant select (id,slug,name,brand_name,description,logo_url,city,status,created_at,updated_at) on public.jewelry_tenants to anon;
+grant select on public.jewelry_tenants, public.jewelry_domains, public.jewelry_store_data to authenticated;
+grant select on public.jewelry_domains, public.jewelry_store_data to anon;
 grant insert, update, delete on public.jewelry_tenants, public.jewelry_domains to authenticated;
 grant insert, update, delete on public.jewelry_store_data to authenticated;
 grant select on public.platform_admins to authenticated;
