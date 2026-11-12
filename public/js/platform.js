@@ -9,8 +9,9 @@ async function init(sb){
  const domain=host();
  try{
   const {data,error}=await client.rpc('resolve_jewelry_domain',{p_domain:domain});
-  if(!error&&data&&data[0]){tenant=data[0];platformHome=false;return {tenant,platformHome:false}}
- }catch(e){}
+  if(error)return {tenant:null,platformHome:false,legacy:true};
+  if(data&&data[0]){tenant=data[0];platformHome=false;return {tenant,platformHome:false}}
+ }catch(e){return {tenant:null,platformHome:false,legacy:true}}
  tenant=null;platformHome=true;
  try{const {data}=await client.from('jewelry_tenants').select('id').eq('status','active').limit(1);if(data?.length===1){} }catch(e){}
  return {tenant:null,platformHome:true};
