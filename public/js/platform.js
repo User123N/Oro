@@ -28,9 +28,11 @@ async function saveTenantData(values){
  const {error}=await client.from('jewelry_store_data').upsert(rows,{onConflict:'tenant_id,data_key'});
  if(error)throw error;
 }
-function card(t){return '<a class="market-card" href="'+(t.domain?'https://'+esc(t.domain):'javascript:void(0)')+'"><div class="market-logo">'+(t.logo_url?'<img src="'+esc(t.logo_url)+'" alt="">':'<span>✦</span>')+'</div><div class="market-card-copy"><small>'+esc(t.city||'JOYERÍA')+'</small><h3>'+esc(t.brand_name||t.name)+'</h3><p>'+esc(t.description||'Descubre su catálogo y colecciones.')+'</p><span>Visitar tienda <b>↗</b></span></div></a>'}
+function card(t){const tag=t.domain?'a':'article',href=t.domain?' href="https://'+esc(t.domain)+'"':'';return '<'+tag+' class="market-card"'+href+'><div class="market-logo">'+(t.logo_url?'<img src="'+esc(t.logo_url)+'" alt="">':'<span>✦</span>')+'</div><div class="market-card-copy"><small>'+esc(t.city||'JOYERÍA')+'</small><h3>'+esc(t.brand_name||t.name)+'</h3><p>'+esc(t.description||'Descubre su catálogo y colecciones.')+'</p><span>'+(t.domain?'Visitar tienda':'Dominio pendiente')+' <b>↗</b></span></div></'+tag+'>'}
 async function renderHome(){
  const root=document.querySelector('#app');if(!root)return;
+ document.querySelector('#hd').innerHTML='<header class="market-header"><a href="#/" class="market-brand">ORO<span>✦</span></a><nav><a href="#/">Joyerías</a><a href="#/plataforma">Administrar</a></nav></header>';
+ document.querySelector('#ft').innerHTML='<footer class="market-footer"><div class="market-wrap"><b>ORO · MARKETPLACE</b><span>Un espacio para cada joyería.</span><a href="#/plataforma">Centro de administración ↗</a></div></footer>';
  root.innerHTML='<section class="market-hero"><div class="market-orb"></div><div class="market-wrap"><span class="market-eyebrow">ORO · MARKETPLACE</span><h1>Un universo de<br><em>joyerías.</em></h1><p>Descubre marcas, colecciones y piezas únicas. Cada joyería tiene su propio espacio.</p><div class="market-search"><input id="marketSearch" type="search" placeholder="Buscar una joyería o ciudad…"></div><div id="marketGrid" class="market-grid"><p>Cargando joyerías…</p></div></div></section>';
  try{
   const {data,error}=await client.from('jewelry_tenants').select('id,slug,name,brand_name,description,logo_url,city').eq('status','active').order('created_at',{ascending:false});
