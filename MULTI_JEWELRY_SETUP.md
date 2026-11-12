@@ -4,7 +4,7 @@ Esta actualización añade un marketplace, un panel maestro y separación de dat
 
 ## 1. Estado de la base de datos
 
-La migración `002_multi_jewelry_platform`, el ajuste `003_optimize_platform_owner_rls` y `004_secure_first_admin_bootstrap` ya se aplicaron al proyecto ORO-SGARCIA. Se crearon cinco tablas nuevas y todas tienen RLS activado. No se borraron tablas ni datos. La revisión de seguridad de Supabase no reportó hallazgos.
+La migración `002_multi_jewelry_platform`, los ajustes `003_optimize_platform_owner_rls`, `004_secure_first_admin_bootstrap` y `005_lock_down_private_bootstrap_tokens` ya se aplicaron al proyecto ORO-SGARCIA. Se crearon cinco tablas nuevas y todas tienen RLS activado. No se borraron tablas ni datos. La revisión de seguridad de Supabase no reportó hallazgos.
 
 ## 2. Crear y activar el primer administrador
 
@@ -26,7 +26,7 @@ Después ejecuta un nuevo deploy para que `build.sh` genere `public/js/config.js
 ## 4. Crear la primera joyería
 
 1. Abre el dominio principal de ORO y entra a `/#/plataforma`.
-2. Inicia sesión con el correo añadido a `platform_admins`.
+2. Inicia sesión con la cuenta que activaste como administrador principal.
 3. Crea la joyería y registra el correo de su propietario.
 4. El propietario debe tener un usuario en **Supabase Authentication** con ese mismo correo.
 5. Añade su dominio en el formulario. El dominio debe apuntar primero al hosting.
