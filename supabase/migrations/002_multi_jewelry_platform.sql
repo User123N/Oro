@@ -10,7 +10,6 @@ create table if not exists public.jewelry_tenants (
   brand_name text not null,
   description text not null default '',
   logo_url text not null default '',
-  owner_email text not null,
   city text not null default '',
   status text not null default 'active' check (status in ('active','suspended','draft')),
   created_at timestamptz not null default now(),
@@ -19,6 +18,12 @@ create table if not exists public.jewelry_tenants (
 
 create table if not exists public.platform_admins (
   email text primary key,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.jewelry_tenant_owners (
+  tenant_id uuid primary key references public.jewelry_tenants(id) on delete cascade,
+  owner_email text not null,
   created_at timestamptz not null default now()
 );
 
@@ -58,8 +63,10 @@ returns boolean language sql stable security definer set search_path = public
 as $$
   select exists (
     select 1 from public.jewelry_tenants t
-    where t.id = p_tenant_id
-      and lower(t.owner_email) = lower(coalesce(auth.jwt()->>'email',''))
+    where t.id = p_tenant_id and exists (
+      select 1 from public.jewelry_tenant_owners o
+      where o.tenant_id=t.id and lower(o.owner_email)=lower(coalesce(auth.jwt()->>'email',''))
+    )
   );
 $$;
 
@@ -80,6 +87,7 @@ $$;
 
 alter table public.jewelry_tenants enable row level security;
 alter table public.platform_admins enable row level security;
+alter table public.jewelry_tenant_owners enable row level security;
 alter table public.jewelry_domains enable row level security;
 alter table public.jewelry_store_data enable row level security;
 
@@ -94,6 +102,14 @@ for all to authenticated using (public.is_platform_admin()) with check (public.i
 drop policy if exists "platform admins read own admin row" on public.platform_admins;
 create policy "platform admins read own admin row" on public.platform_admins
 for select to authenticated using (lower(email)=lower(coalesce(auth.jwt()->>'email','')));
+
+drop policy if exists "owners and platform admins read owner mapping" on public.jewelry_tenant_owners;
+create policy "owners and platform admins read owner mapping" on public.jewelry_tenant_owners
+for select to authenticated using (public.is_platform_admin() or lower(owner_email)=lower(coalesce(auth.jwt()->>'email','')));
+
+drop policy if exists "platform admins manage owner mapping" on public.jewelry_tenant_owners;
+create policy "platform admins manage owner mapping" on public.jewelry_tenant_owners
+for all to authenticated using (public.is_platform_admin()) with check (public.is_platform_admin());
 
 drop policy if exists "public resolve verified domains" on public.jewelry_domains;
 create policy "public resolve verified domains" on public.jewelry_domains
@@ -113,11 +129,12 @@ for all to authenticated
 using (public.is_platform_admin() or public.owns_jewelry(tenant_id))
 with check (public.is_platform_admin() or public.owns_jewelry(tenant_id));
 
-revoke select on public.jewelry_tenants from anon;
-grant select (id,slug,name,brand_name,description,logo_url,city,status,created_at,updated_at) on public.jewelry_tenants to anon;
-grant select on public.jewelry_tenants, public.jewelry_domains, public.jewelry_store_data to authenticated;
+revoke select on public.jewelry_tenants from anon, authenticated;
+grant select (id,slug,name,brand_name,description,logo_url,city,status,created_at,updated_at) on public.jewelry_tenants to anon, authenticated;
+grant select on public.jewelry_tenant_owners to authenticated;
+grant select on public.jewelry_domains, public.jewelry_store_data to authenticated;
 grant select on public.jewelry_domains, public.jewelry_store_data to anon;
-grant insert, update, delete on public.jewelry_tenants, public.jewelry_domains to authenticated;
+grant insert, update, delete on public.jewelry_tenants, public.jewelry_domains, public.jewelry_tenant_owners to authenticated;
 grant insert, update, delete on public.jewelry_store_data to authenticated;
 grant select on public.platform_admins to authenticated;
 grant execute on function public.resolve_jewelry_domain(text) to anon, authenticated;
