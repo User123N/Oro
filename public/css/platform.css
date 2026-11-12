@@ -1,0 +1,105 @@
+/* ORO multi-tenant marketplace + mobile refinement */
+.market-hero{position:relative;overflow:hidden;min-height:80vh;padding:clamp(130px,16vw,210px) 0 90px;background:radial-gradient(ellipse at 82% 8%,#6c512433,transparent 38%),#080807}
+.market-orb{position:absolute;right:-12vw;top:10vh;width:48vw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#d8b66f24,transparent 68%);pointer-events:none}
+.market-wrap,.platform-wrap{width:min(1180px,calc(100% - 40px));margin:auto;position:relative}
+.market-eyebrow{font-size:.72rem;letter-spacing:.22em;color:#d8b66f;font-weight:700}
+.market-hero h1,.platform-head h1,.platform-panel h1{font-size:clamp(3rem,8vw,7rem);line-height:.98;letter-spacing:-.065em;margin:18px 0}
+.market-hero h1 em{font-style:normal;color:#d8b66f}
+.market-hero> .market-wrap>p,.platform-head p{max-width:620px;color:#c8bdab;font-size:1.08rem}
+.market-search{margin:34px 0 28px;max-width:540px}
+.market-search input,.platform-panel input,.platform-panel textarea{width:100%;min-height:50px;border:1px solid #ffffff24;border-radius:16px;padding:13px 16px;background:#ffffff0b;color:#f3ecdf;font:inherit;outline-offset:3px}
+.market-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.market-card{display:flex;flex-direction:column;min-width:0;overflow:hidden;border-radius:26px;border:1px solid #ffffff1c;background:linear-gradient(145deg,#ffffff0b,#ffffff03);text-decoration:none;color:#f3ecdf;transition:transform .25s,border-color .25s}
+.market-card:hover{transform:translateY(-5px);border-color:#d8b66f80}
+.market-logo{height:190px;display:grid;place-items:center;background:radial-gradient(ellipse,#3b2d1c,#11100e 70%);overflow:hidden}
+.market-logo img{width:100%;height:100%;object-fit:contain;padding:25px}
+.market-logo span{font-size:4rem;color:#d8b66f}
+.market-card-copy{padding:22px}
+.market-card-copy small{font-size:.68rem;letter-spacing:.16em;color:#d8b66f}
+.market-card-copy h3{font-size:1.5rem;margin:8px 0}
+.market-card-copy p{color:#bdb3a3;line-height:1.6;min-height:3.2em}
+.market-card-copy>span{display:flex;justify-content:space-between;margin-top:18px;color:#e9d5a9}
+.market-empty{color:#c8bdab;padding:28px 0}
+.platform-admin{min-height:100vh;padding:120px 0 70px;background:radial-gradient(ellipse at 85% 0%,#6c512422,transparent 36%),#080807;color:#f3ecdf}
+.platform-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:32px}
+.platform-head h1{font-size:clamp(2.8rem,6vw,5rem)}
+.platform-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.platform-stats article,.platform-panel,.platform-note{border:1px solid #ffffff1c;border-radius:24px;background:#ffffff08;padding:22px;backdrop-filter:blur(14px)}
+.platform-stats small,.platform-store small{display:block;color:#bdb3a3}
+.platform-stats b{display:block;font-size:2.4rem;color:#d8b66f}
+.platform-columns{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:18px;align-items:start}
+.platform-panel h2{font-size:1.7rem;margin:10px 0 20px}
+.platform-panel label{display:block;margin:14px 0;color:#d7cbb8;font-size:.85rem}
+.platform-panel label input,.platform-panel label textarea{display:block;margin-top:7px}
+.platform-primary,.platform-secondary,.platform-danger{border:0;border-radius:14px;padding:13px 18px;font:inherit;font-weight:650;cursor:pointer}
+.platform-primary{background:linear-gradient(120deg,#b88d46,#ead39a);color:#17130c;width:100%;margin-top:10px}
+.platform-secondary{background:#ffffff12;color:#f3ecdf;border:1px solid #ffffff24}
+.platform-danger{background:#8b343422;color:#ffb9b9;border:1px solid #d36b6b55}
+.platform-store-list{display:grid;gap:10px}
+.platform-store{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:14px 0;border-bottom:1px solid #ffffff18}
+.platform-store b{display:block}
+.platform-store select{background:#1a1814;color:#f3ecdf;border:1px solid #ffffff2a;border-radius:12px;padding:10px;max-width:130px}
+.platform-note{margin-top:18px;color:#c8bdab;line-height:1.7}
+@media(max-width:900px){.market-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.platform-columns{grid-template-columns:1fr}.platform-admin{padding-top:100px}}
+@media(max-width:600px){
+ .market-wrap,.platform-wrap{width:calc(100% - 28px)}
+ .market-hero{padding:112px 0 50px;min-height:auto}
+ .market-grid{grid-template-columns:1fr;gap:12px}
+ .market-card{display:grid;grid-template-columns:112px minmax(0,1fr);border-radius:19px}
+ .market-logo{height:100%;min-height:145px}
+ .market-logo img{padding:12px}
+ .market-card-copy{padding:14px}
+ .market-card-copy h3{font-size:1.12rem}
+ .market-card-copy p{font-size:.84rem;min-height:0;margin:5px 0}
+ .market-card-copy>span{font-size:.82rem;margin-top:10px}
+ .platform-admin{padding:100px 0 40px}
+ .platform-head{display:block}
+ .platform-head .platform-secondary{margin-top:14px}
+ .platform-stats{gap:8px}
+ .platform-stats article{padding:13px;border-radius:17px}
+ .platform-stats b{font-size:1.6rem}
+ .platform-stats small{font-size:.72rem}
+ .platform-panel{padding:17px;border-radius:19px}
+ .platform-store{grid-template-columns:minmax(0,1fr) auto;gap:8px}
+ .platform-store [data-delete]{grid-column:2}
+ .platform-store select{grid-column:2;grid-row:1}
+}
+@media(max-width:380px){.platform-store{grid-template-columns:1fr}.platform-store select,.platform-store [data-delete]{grid-column:1;grid-row:auto}}
+/* Product cards: actions are compact and never cover the jewelry image on touch screens. */
+@media(max-width:700px){
+ .pi .qa{position:static!important;display:flex!important;width:calc(100% - 18px)!important;min-height:38px!important;margin:8px 9px 10px!important;padding:8px 10px!important;font-size:.72rem!important;justify-content:center;white-space:normal}
+ .pi{display:flex!important;flex-direction:column!important;height:auto!important;aspect-ratio:auto!important}
+ .pi img{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;aspect-ratio:1/1!important;flex:0 0 auto}
+ .pi img.h{display:none!important}
+ .pi .tg{top:9px!important;left:9px!important}
+ .pn{padding:11px 10px 14px!important}
+ .pn h3{font-size:clamp(.88rem,3.5vw,1rem)!important;line-height:1.2!important}
+ .pn b{font-size:.82rem!important}
+ .wa{right:12px!important;bottom:12px!important;left:auto!important;max-width:calc(100vw - 24px)!important;width:auto!important;min-height:42px!important;padding:10px 14px!important;font-size:.75rem!important;border-radius:999px!important;z-index:35!important}
+ .pd-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:9px!important;position:static!important;margin:20px 0!important}
+ .pd-actions .btn{min-width:0!important;width:100%!important;min-height:44px!important;padding:10px 12px!important;font-size:.76rem!important;line-height:1.25!important;white-space:normal!important}
+ .pd-main-frame{height:auto!important;min-height:0!important;aspect-ratio:1/1!important}
+ .pd-main-img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important}
+ .pd-info{min-width:0!important;padding:12px 0 0!important}
+ .pd-info h1{font-size:clamp(1.8rem,8vw,2.6rem)!important;line-height:1.08!important}
+ .pd-info p{font-size:.95rem!important}
+ .pd-thumb{width:62px!important;height:62px!important}
+ .dr{width:min(100vw,420px)!important;max-width:100vw!important;padding:20px 16px!important}
+ .dr .btn{width:100%!important;min-height:46px!important;padding:11px 14px!important;white-space:normal!important}
+ .ci{display:grid!important;grid-template-columns:58px minmax(0,1fr) auto auto auto!important;gap:7px!important;align-items:center!important}
+ .ci img{width:58px!important;height:58px!important}
+ .ci b{font-size:.88rem!important}
+ .ci button{min-width:34px!important;min-height:34px!important;padding:4px!important}
+ .bar{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+ .bar input,.bar select{grid-column:1/-1!important;width:100%!important;min-width:0!important}
+ .ch{min-width:0!important;padding:9px 8px!important;font-size:.72rem!important}
+ .th{display:flex!important;gap:8px!important;overflow-x:auto!important;padding-bottom:5px}
+ .pd-assurance{display:grid!important;grid-template-columns:1fr!important;gap:6px!important}
+}
+@media(max-width:390px){
+ .gp{gap:8px!important}
+ .pn{padding:9px 8px 12px!important}
+ .pi .qa{font-size:.67rem!important}
+ .pd-actions{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){.market-card{transition:none!important}}
