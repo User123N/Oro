@@ -4,17 +4,14 @@ Esta actualización añade un marketplace, un panel maestro y separación de dat
 
 ## 1. Estado de la base de datos
 
-La migración `002_multi_jewelry_platform` y el ajuste `003_optimize_platform_owner_rls` ya se aplicaron al proyecto ORO-SGARCIA. Se crearon cinco tablas nuevas y todas tienen RLS activado. No se borraron tablas ni datos. La revisión de seguridad de Supabase no reportó hallazgos.
+La migración `002_multi_jewelry_platform`, el ajuste `003_optimize_platform_owner_rls` y `004_secure_first_admin_bootstrap` ya se aplicaron al proyecto ORO-SGARCIA. Se crearon cinco tablas nuevas y todas tienen RLS activado. No se borraron tablas ni datos. La revisión de seguridad de Supabase no reportó hallazgos.
 
-## 2. Registrar la cuenta administradora
+## 2. Crear y activar el primer administrador
 
-Para no compartir tu correo en el chat, abre **Supabase → SQL Editor** y ejecuta esta instrucción, sustituyendo el texto de ejemplo por el correo de la cuenta que ya existe en Supabase Authentication:
-
-```sql
-insert into public.platform_admins(email)
-values ('tu-correo-real@dominio.com')
-on conflict (email) do nothing;
-```
+1. Abre la vista previa y entra a `/#/plataforma`.
+2. Usa **Crear cuenta** para registrar tu usuario con tu propio correo y una contraseña segura. Si Supabase solicita confirmar el correo, hazlo desde tu bandeja y luego inicia sesión.
+3. En la pantalla **Activar administrador principal**, pega la clave de activación de un solo uso que te entregué en esta conversación.
+4. La clave vence en 24 horas y solo se puede utilizar una vez. El sistema registra automáticamente como administrador el correo de la sesión autenticada. No compartas esa clave con nadie.
 
 No compartas contraseñas ni claves privadas. La clave anon/public se puede usar en el navegador; nunca publiques la service_role.
 
