@@ -2,12 +2,13 @@
 
 Esta actualización añade un marketplace, un panel maestro y separación de datos por joyería. No borra la tabla anterior `public.store`.
 
-## 1. Aplicar la migración en Supabase
+## 1. Estado de la base de datos
 
-1. Abre el proyecto Supabase conectado a ORO.
-2. Entra a **SQL Editor**.
-3. Abre el archivo `supabase/migrations/002_multi_jewelry_platform.sql` de este repositorio y ejecuta el contenido completo.
-4. En la parte final, sustituye `TU_CORREO_ADMIN` por el correo que usas como administrador principal y ejecuta esta instrucción por separado:
+La migración `002_multi_jewelry_platform` y el ajuste `003_optimize_platform_owner_rls` ya se aplicaron al proyecto ORO-SGARCIA. Se crearon cinco tablas nuevas y todas tienen RLS activado. No se borraron tablas ni datos. La revisión de seguridad de Supabase no reportó hallazgos.
+
+## 2. Registrar la cuenta administradora
+
+Para no compartir tu correo en el chat, abre **Supabase → SQL Editor** y ejecuta esta instrucción, sustituyendo el texto de ejemplo por el correo de la cuenta que ya existe en Supabase Authentication:
 
 ```sql
 insert into public.platform_admins(email)
@@ -17,7 +18,7 @@ on conflict (email) do nothing;
 
 No compartas contraseñas ni claves privadas. La clave anon/public se puede usar en el navegador; nunca publiques la service_role.
 
-## 2. Variables de Netlify
+## 3. Variables de Netlify
 
 En **Site configuration → Environment variables**, verifica que estén definidas:
 - `SUPABASE_URL`
@@ -25,7 +26,7 @@ En **Site configuration → Environment variables**, verifica que estén definid
 
 Después ejecuta un nuevo deploy para que `build.sh` genere `public/js/config.js`.
 
-## 3. Crear la primera joyería
+## 4. Crear la primera joyería
 
 1. Abre el dominio principal de ORO y entra a `/#/plataforma`.
 2. Inicia sesión con el correo añadido a `platform_admins`.
@@ -34,11 +35,11 @@ Después ejecuta un nuevo deploy para que `build.sh` genere `public/js/config.js
 5. Añade su dominio en el formulario. El dominio debe apuntar primero al hosting.
 6. Cuando DNS y HTTPS estén listos, pulsa **Verificar dominio**. Solo entonces el dominio resolverá a esa tienda.
 
-## 4. Dominios propios
+## 5. Dominios propios
 
 Cada dominio debe agregarse también en el panel del proveedor de hosting (Netlify → Domain management) y configurarse con los registros DNS que indique Netlify. La verificación dentro de ORO no sustituye la configuración del DNS ni registra dominios.
 
-## 5. Separación y permisos
+## 6. Separación y permisos
 
 - Los productos, colecciones y ajustes se guardan por `tenant_id`.
 - Los visitantes solo pueden leer los datos de tiendas activas.
@@ -48,4 +49,4 @@ Cada dominio debe agregarse también en el panel del proveedor de hosting (Netli
 
 ## Importante sobre la tienda SGarcía existente
 
-La tabla antigua `public.store` se conserva para evitar borrar datos. Al crear la primera joyería desde el panel, ORO intenta importar automáticamente los ajustes, productos y colecciones de la tabla antigua `public.store`. Comprueba que la primera joyería sea SGarcía y que los productos aparezcan correctamente antes de eliminar o modificar la tabla antigua.
+La tabla antigua `public.store` se conserva para evitar borrar datos. Al crear la primera joyería desde el panel, ORO intenta importar ajustes, productos y colecciones de `public.store`; si esa tabla no existe, intenta recuperar la copia local del navegador donde se está creando la tienda. En el proyecto revisado no había tablas públicas, así que no se encontró un catálogo antiguo en Supabase. Revisa el catálogo tras crear SGarcía y conserva el navegador con los datos originales hasta comprobar la importación.
