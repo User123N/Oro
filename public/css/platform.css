@@ -108,3 +108,11 @@
 .platform-store input::placeholder{color:#8f8677}
 @media(max-width:900px){.platform-store{grid-template-columns:minmax(0,1fr) repeat(2,auto)}.platform-store [data-add-domain],.platform-store [data-verify],.platform-store [data-delete]{grid-row:2}.platform-store [data-add-domain]{grid-column:1}.platform-store [data-verify]{grid-column:2}.platform-store [data-delete]{grid-column:3}}
 @media(max-width:600px){.platform-store{grid-template-columns:minmax(0,1fr) auto;gap:8px}.platform-store>div{grid-column:1/-1}.platform-store select{grid-column:1;grid-row:auto;max-width:none}.platform-store [data-add-domain],.platform-store [data-verify],.platform-store [data-delete]{grid-column:auto;grid-row:auto}.platform-store input{max-width:none}.platform-store button{font-size:.72rem;padding:9px 10px}}
+
+.market-header{position:fixed;z-index:80;top:12px;left:50%;transform:translateX(-50%);width:min(1180px,calc(100% - 28px));min-height:68px;display:flex;align-items:center;justify-content:space-between;padding:10px 22px;border-radius:24px;border:1px solid #ffffff20;background:#11100edb;backdrop-filter:blur(20px);box-shadow:0 14px 40px #0008}
+.market-brand{font-weight:800;letter-spacing:.18em;color:#f3ecdf;text-decoration:none;font-size:1.1rem}.market-brand span{color:#d8b66f;margin-left:8px}
+.market-header nav{display:flex;gap:22px}.market-header nav a{color:#d9cfbd;text-decoration:none;font-size:.88rem}
+.market-footer{background:#0d0c0a;border-top:1px solid #ffffff18;padding:30px 0;color:#bdb3a3}
+.market-footer .market-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.market-footer a{color:#e5cf9e;text-decoration:none}
+@media(max-width:600px){.market-header{top:7px;width:calc(100% - 14px);min-height:58px;padding:9px 14px;border-radius:18px}.market-header nav{gap:12px}.market-header nav a{font-size:.75rem}.market-footer .market-wrap{display:grid;gap:10px}}
