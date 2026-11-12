@@ -93,7 +93,7 @@ alter table public.jewelry_store_data enable row level security;
 
 drop policy if exists "public active jewelry directory" on public.jewelry_tenants;
 create policy "public active jewelry directory" on public.jewelry_tenants
-for select using (status='active' or public.is_platform_admin() or lower(owner_email)=lower(coalesce(auth.jwt()->>'email','')));
+for select using (status='active' or public.is_platform_admin() or public.owns_jewelry(id));
 
 drop policy if exists "platform admins manage jewelry tenants" on public.jewelry_tenants;
 create policy "platform admins manage jewelry tenants" on public.jewelry_tenants
