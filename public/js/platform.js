@@ -26,7 +26,14 @@ async function loadTenantData(){
  if(!tenant)return null;
  const {data,error}=await client.from('jewelry_store_data').select('data_key,data').eq('tenant_id',tenant.tenant_id);
  if(error)throw error;
- const out={};(data||[]).forEach(r=>out[r.data_key]=r.data);return out;
+ const out={};(data||[]).forEach(r=>out[r.data_key]=r.data);
+ if(!data||!data.length){
+  const cache={};
+  [['settings','au_s'],['products','au_p'],['collections','au_c']].forEach(([key,storage])=>{try{const raw=localStorage.getItem(storage);if(raw!==null)cache[key]=JSON.parse(raw)}catch(e){}});
+  const rows=Object.entries(cache).map(([data_key,value])=>({tenant_id:tenant.tenant_id,data_key,data:value}));
+  if(rows.length){try{const {error:copyError}=await client.from('jewelry_store_data').upsert(rows,{onConflict:'tenant_id,data_key'});if(!copyError)Object.assign(out,cache)}catch(e){}}
+ }
+ return out;
 }
 async function saveTenantData(values){
  if(!tenant)throw new Error('Este dominio todavía no está vinculado a una joyería.');
