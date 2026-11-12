@@ -3,7 +3,7 @@
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const slugify=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48);
 let client=null,tenant=null,platformHome=false,admin=false;
-const host=()=>location.hostname.toLowerCase().replace(/^www\./,'');
+const host=()=>location.hostname.toLowerCase();
 async function init(sb){
  client=sb;
  const domain=host();
