@@ -79,5 +79,42 @@ async function renderAdmin(){
  root.querySelectorAll('[data-verify]').forEach(el=>el.onclick=async()=>{const domain=el.dataset.domain;if(!domain){alert('Primero agrega un dominio para esta joyería.');return}if(!confirm('Confirma que '+domain+' ya apunta a Netlify y que el certificado HTTPS está listo.'))return;const {error}=await client.from('jewelry_domains').update({verified:true}).eq('tenant_id',el.dataset.verify).eq('domain',domain);if(error){alert('No se pudo verificar: '+error.message);return}renderAdmin()});
  root.querySelectorAll('[data-delete]').forEach(el=>el.onclick=async()=>{if(!confirm('¿Eliminar esta joyería y sus datos? Esta acción no se puede deshacer.'))return;const {error}=await client.from('jewelry_tenants').delete().eq('id',el.dataset.delete);if(error){alert('No se pudo eliminar: '+error.message);return}renderAdmin()});
 }
-window.OroPlatform={init,openTenantBySlug,loadTenantData,saveTenantData,get tenant(){return tenant},get platformHome(){return platformHome},renderHome,renderAdmin};
+
+async function renderOwnerAdmin(){
+ const root=document.querySelector('#app');if(!root)return;
+ const {data:{session}}=await client.auth.getSession();
+ if(!session){root.innerHTML='<section class="platform-admin"><div class="platform-panel"><span class="market-eyebrow">ORO · TU JOYERÍA</span><h1>Administrar tienda</h1><p>Inicia sesión con el correo que el superadministrador asignó a tu joyería.</p><form id="ownerLogin"><label>Correo<input name="email" type="email" required autocomplete="email"></label><label>Contraseña<input name="password" type="password" required autocomplete="current-password"></label><button class="platform-primary">Entrar</button><p id="ownerMsg" role="status"></p></form></div></section>';root.querySelector('#ownerLogin').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);const {error}=await client.auth.signInWithPassword({email:f.get('email'),password:f.get('password')});if(error){root.querySelector('#ownerMsg').textContent='No se pudo iniciar sesión. Verifica tus datos.';return}renderOwnerAdmin()};return}
+ const email=String(session.user.email||'').toLowerCase();
+ const {data:assignments,error}=await client.from('jewelry_tenant_owners').select('tenant_id,owner_email').eq('owner_email',email);
+ if(error){root.innerHTML='<section class="platform-admin"><div class="platform-panel"><h1>No se pudo cargar tu acceso</h1><p>'+esc(error.message)+'</p></div></section>';return}
+ const ids=(assignments||[]).map(x=>x.tenant_id);
+ if(!ids.length){root.innerHTML='<section class="platform-admin"><div class="platform-panel"><span class="market-eyebrow">ORO · ACCESO</span><h1>Aún no tienes una joyería asignada</h1><p>Solicita al superadministrador que registre tu correo como propietario.</p><button class="platform-secondary" id="ownerLogout">Cerrar sesión</button></div></section>';root.querySelector('#ownerLogout').onclick=()=>client.auth.signOut().then(()=>renderOwnerAdmin());return}
+ const {data:stores, error:storeError}=await client.from('jewelry_tenants').select('id,slug,name,brand_name,status').in('id',ids);
+ if(storeError){root.innerHTML='<section class="platform-admin"><div class="platform-panel"><h1>Error</h1><p>'+esc(storeError.message)+'</p></div></section>';return}
+ let selected=(stores||[])[0];
+ const render=async()=>{
+  const {data:rows,error:dataError}=await client.from('jewelry_store_data').select('data_key,data').eq('tenant_id',selected.id);
+  if(dataError){root.innerHTML='<section class="platform-admin"><div class="platform-panel"><h1>No se pudieron cargar los datos</h1><p>'+esc(dataError.message)+'</p></div></section>';return}
+  const values={settings:{},products:[],collections:[]};(rows||[]).forEach(x=>values[x.data_key]=x.data);
+  root.innerHTML='<section class="platform-admin"><div class="platform-wrap"><header class="platform-head"><div><span class="market-eyebrow">ORO · PANEL DE JOYERÍA</span><h1>'+esc(selected.brand_name||selected.name)+'</h1><p>Administra únicamente la información pública de tu tienda.</p></div><button id="ownerLogout" class="platform-secondary">Cerrar sesión</button></header><div class="owner-toolbar"><label>Mi joyería<select id="ownerStore">'+(stores||[]).map(t=>'<option value="'+t.id+'" '+(t.id===selected.id?'selected':'')+'>'+esc(t.brand_name||t.name)+'</option>').join('')+'</select></label><a class="platform-secondary" href="#/joyeria/'+esc(selected.slug)+'" target="_blank" rel="noopener">Ver tienda ↗</a></div><div class="owner-grid"><article class="platform-panel"><span class="market-eyebrow">CATÁLOGO</span><h2>Productos</h2><p>Gestiona nombres, precios, descripciones e imágenes desde el catálogo.</p><textarea id="ownerProducts" rows="14" spellcheck="false">'+esc(JSON.stringify(values.products,null,2))+'</textarea></article><article class="platform-panel"><span class="market-eyebrow">ORGANIZACIÓN</span><h2>Categorías</h2><p>En este sistema se guardan como colecciones de la tienda.</p><textarea id="ownerCategories" rows="14" spellcheck="false">'+esc(JSON.stringify(values.collections,null,2))+'</textarea></article><article class="platform-panel owner-settings"><span class="market-eyebrow">IDENTIDAD</span><h2>Configuración de tienda</h2><p>Nombre, contacto, colores, textos e identidad visual.</p><textarea id="ownerSettings" rows="14" spellcheck="false">'+esc(JSON.stringify(values.settings,null,2))+'</textarea></article></div><div class="owner-save"><button id="ownerSave" class="platform-primary">Guardar cambios</button><p id="ownerSaveMsg" role="status"></p></div></div></section>';
+  root.querySelector('#ownerLogout').onclick=()=>client.auth.signOut().then(()=>renderOwnerAdmin());
+  root.querySelector('#ownerStore')?.addEventListener('change',async e=>{selected=(stores||[]).find(t=>t.id===e.target.value)||selected;await render()});
+  root.querySelector('#ownerSave').onclick=async()=>{
+   const msg=root.querySelector('#ownerSaveMsg');
+   try{
+    const products=JSON.parse(root.querySelector('#ownerProducts').value);
+    const collections=JSON.parse(root.querySelector('#ownerCategories').value);
+    const settings=JSON.parse(root.querySelector('#ownerSettings').value);
+    if(!Array.isArray(products)||!Array.isArray(collections)||!settings||Array.isArray(settings)||typeof settings!=='object')throw new Error('Productos y categorías deben ser listas JSON; configuración debe ser un objeto JSON.');
+    const payload=[{tenant_id:selected.id,data_key:'products',data:products},{tenant_id:selected.id,data_key:'collections',data:collections},{tenant_id:selected.id,data_key:'settings',data:settings}];
+    const {error:saveError}=await client.from('jewelry_store_data').upsert(payload,{onConflict:'tenant_id,data_key'});
+    if(saveError)throw saveError;
+    msg.textContent='Cambios guardados correctamente.';
+   }catch(err){msg.textContent='No se pudo guardar: '+(err.message||'revisa el contenido JSON.')}
+  };
+ };
+ await render();
+}
+
+window.OroPlatform={init,openTenantBySlug,loadTenantData,saveTenantData,renderOwnerAdmin,get tenant(){return tenant},get platformHome(){return platformHome},renderHome,renderAdmin};
 })();
