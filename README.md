@@ -1,49 +1,48 @@
-# ORO · Plataforma de joyerías
+# ORO · Catálogos digitales para joyerías
 
-ORO permite publicar varias joyerías independientes en una sola plataforma. Cada negocio tiene su propia página pública, catálogo y configuración, mientras el superadministrador administra el directorio central.
+ORO es una plataforma SaaS para vender páginas de catálogo a múltiples joyerías. Cada cliente paga una tarifa inicial de creación y una mensualidad de mantenimiento, recibe un subdominio propio y administra su catálogo desde un panel privado.
 
-## Alcance funcional
+## Alcance
+- Página comercial de ORO y catálogo público independiente por joyería.
+- Subdominios: `slug.dominio-de-oro.com`.
+- Panel de propietario: productos, categorías y personalización.
+- Superadministrador: joyerías, propietarios, subdominios, estado del servicio y pagos.
+- Aislamiento multi-tenant con Supabase RLS.
+- Sin citas, reservas, pedidos, carrito, empleados, inventario ni CRM. El contacto por WhatsApp puede permanecer como canal de consulta.
 
-- Marketplace público con directorio de joyerías.
-- Página pública independiente por joyería, identificada por su slug o dominio verificado.
-- Panel del propietario para administrar **productos, categorías y configuración de la tienda**.
-- Panel superadministrador para crear, activar, suspender y eliminar joyerías, asignar propietarios y vincular dominios.
-- Separación de datos por joyería mediante Supabase Row Level Security (RLS).
+## Supabase
+1. Ejecuta `supabase/schema.sql` solo si aún necesitas la tabla heredada `store` y el bucket de imágenes; conserva el correo administrador que corresponda.
+2. Ejecuta `supabase/migrations/001_multi_jewelry_core.sql`. Cambia el token de activación antes de ejecutarlo y guarda la clave.
+3. Ejecuta `supabase/migrations/002_jewelry_billing.sql` después de la migración 001.
+4. Crea el usuario administrador en Supabase Auth, entra a `/#/plataforma` y reclama el rol con el token de un solo uso.
+5. Desactiva el registro público de usuarios. El administrador crea/asigna las cuentas de propietarios.
 
-**Fuera de alcance:** citas, reservas, gestión de pedidos, inventario como módulo independiente, clientes y empleados. Se conserva el contacto comercial de la tienda por WhatsApp que ya existía en el escaparate.
+Nunca pongas la clave `service_role` en el navegador. Solo se utiliza la clave pública anon.
 
-## 1. Supabase
-
-1. En `supabase/schema.sql`, reemplaza `TU_CORREO@EJEMPLO.COM` por el correo del administrador donde aparece (4 veces). Ejecuta el archivo para conservar la tabla heredada y el bucket de imágenes que utiliza la tienda actual.
-2. Abre `supabase/migrations/001_multi_jewelry_core.sql` en SQL Editor.
-3. Antes de ejecutarlo, cambia el texto `CAMBIA-ESTA-CLAVE-DE-ACTIVACION` por una clave larga y privada. Guarda esa clave: se usa una sola vez para activar el primer superadministrador.
-4. Ejecuta la migración completa.
-5. En Authentication, crea el usuario del superadministrador. Después entra a `/#/plataforma`, inicia sesión y activa la cuenta con la clave de un solo uso.
-6. Desactiva el registro público de usuarios en Supabase Auth. Los propietarios deben tener una cuenta creada y verificada con el mismo correo que el superadministrador les asignó.
-
-No uses la clave `service_role` en el navegador. La aplicación utiliza únicamente la clave pública `anon`; RLS controla los permisos.
-
-## 2. Variables de entorno
-
-En Netlify configura:
+## Vercel
+Configura el proyecto conectado a la rama `feature/oro-multi-jewelry-barberpro-core`:
 
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
+- `ORO_ROOT_DOMAIN` — dominio raíz real, sin protocolo. Ejemplo de formato: `oro.com`.
 
-Después vuelve a desplegar el sitio.
+El proyecto usa `build.sh` y publica la carpeta `public`. El build genera `public/js/config.js`.
 
-## 3. Crear y administrar joyerías
+### Subdominios
+1. Añade el dominio raíz en Vercel.
+2. Añade también el dominio wildcard `*.tu-dominio.com) al mismo proyecto.
+3. Configura en tu proveedor DNS el registro wildcard que Vercel indique (normalmente CNAME para `*` apuntando al destino indicado por Vercel).
+4. Configura `ORO_ROOT_DOMAIN` con el dominio real y vuelve a desplegar.
+5. Al crear una joyería, ORO registra `slug.tu-dominio.com`. La resolución del catálogo se hace por el hostname.
 
-1. Entra a `https://TU-DOMINIO/#/plataforma` como superadministrador.
-2. Crea la joyería y asigna el correo exacto del propietario.
-3. El propietario debe iniciar sesión con ese correo desde `/#/gestion`.
-4. En su panel podrá actualizar productos, categorías y configuración.
-5. La tienda pública se puede abrir desde `/#/joyeria/slug-de-la-joyeria`. Un dominio propio requiere apuntar al hosting y quedar verificado desde el panel central.
+No marques el dominio wildcard como listo hasta que Vercel y DNS lo hayan validado. No se ha realizado un despliegue desde este repositorio.
 
-## 4. Tienda anterior
+## Operación
+- Superadministrador: `/#/plataforma`.
+- Propietario: `/#/gestion`.
+- Cada catálogo se abre en su subdominio; el acceso por slug `/#/joyeria/slug` se conserva como ruta auxiliar.
+- Los pagos se registran manualmente desde el panel; esta versión no integra pasarela automática.
+- Suspender un servicio no borra el catálogo ni sus datos.
 
-La tienda SGarcía y sus datos heredados se conservan. Para importarlos, crea primero la joyería SGarcía usando un nombre o slug que incluya `SGarcía` o `sgarcia`; solo esa joyería recibe la copia inicial de configuración, productos y colecciones. Las demás joyerías comienzan aisladas y sin productos precargados. Los datos locales del navegador no se copian automáticamente entre joyerías.
-
-## 5. Desarrollo y despliegue
-
-El trabajo multi-joyería se desarrolla en la rama `feature/oro-multi-jewelry-barberpro-core`. No se ha integrado a `main` automáticamente. Revisa y prueba la rama antes de fusionarla y desplegarla.
+## Desarrollo
+Los cambios se realizan en `feature/oro-multi-jewelry-barberpro-core`. Revisa la rama y ejecuta las migraciones en el orden indicado antes de desplegar. No integres a `main` ni publiques en producción sin validar Supabase, DNS, Vercel y los permisos.
