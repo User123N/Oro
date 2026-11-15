@@ -87,3 +87,19 @@ footer{background:rgba(10,11,14,.8)!important;border-top:1px solid var(--oro-str
 @media(max-width:900px){.platform-admin{padding-top:100px!important}.platform-stats{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:600px){.platform-admin{padding:88px 0 38px!important}.platform-stats{grid-template-columns:1fr!important}.market-card{border-radius:18px!important}.platform-panel{padding:18px!important}.owner-save{position:static;display:grid}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;backdrop-filter:none!important}}
+
+.oro-billing{display:grid;gap:18px}
+.oro-billing>h2{margin:0;font-family:'Bodoni Moda',serif}
+.oro-billing>p{margin:0;color:var(--oro-muted)}
+.oro-billing-row{padding:18px;border:1px solid var(--oro-stroke);border-radius:18px;background:rgba(0,0,0,.14);display:grid;gap:14px}
+.oro-billing-title{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.oro-billing-title b{font-size:1.05rem}
+.oro-billing-title small,.oro-payment-history small{color:var(--oro-muted)}
+.oro-billing-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.oro-billing-fields label{display:grid;gap:6px;color:var(--oro-muted);font-size:.78rem}
+.oro-billing-fields input,.oro-billing-fields select,.oro-payment-entry input,.oro-payment-entry select{min-width:0;width:100%;padding:11px 12px;border:1px solid var(--oro-stroke);border-radius:12px;background:rgba(255,255,255,.055);color:var(--oro-ivory)}
+.oro-payment-entry{display:grid;grid-template-columns:150px minmax(150px,.8fr) minmax(160px,1fr) auto;gap:9px;align-items:center}
+.oro-payment-history{display:flex;gap:8px 18px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--oro-stroke)}
+.oro-payment-history small{font-size:.76rem}
+@media(max-width:800px){.oro-billing-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.oro-payment-entry{grid-template-columns:1fr 1fr}.oro-payment-entry input:nth-of-type(2){grid-column:1/-1}}
+@media(max-width:520px){.oro-billing-fields,.oro-payment-entry{grid-template-columns:1fr}.oro-payment-entry input:nth-of-type(2){grid-column:auto}.oro-billing-row{padding:14px}}
