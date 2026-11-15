@@ -42,7 +42,7 @@ Después vuelve a desplegar el sitio.
 
 ## 4. Tienda anterior
 
-La tienda SGarcía y sus datos heredados se conservan. Al crear la primera joyería, el sistema intenta copiar los registros heredados de configuración, productos y colecciones. Los datos locales del navegador no se copian automáticamente entre joyerías.
+La tienda SGarcía y sus datos heredados se conservan. Para importarlos, crea primero la joyería SGarcía usando un nombre o slug que incluya `SGarcía` o `sgarcia`; solo esa joyería recibe la copia inicial de configuración, productos y colecciones. Las demás joyerías comienzan aisladas y sin productos precargados. Los datos locales del navegador no se copian automáticamente entre joyerías.
 
 ## 5. Desarrollo y despliegue
 
