@@ -1,39 +1,49 @@
-# JOYERÍA SGARCÍA · Tienda de joyería masculina (Supabase + GitHub + Netlify)
+# ORO · Plataforma de joyerías
 
-```
-public/            sitio web (index.html, css/, js/)
-supabase/schema.sql  base de datos, imágenes y seguridad
-netlify.toml · build.sh  despliegue
-```
+ORO permite publicar varias joyerías independientes en una sola plataforma. Cada negocio tiene su propia página pública, catálogo y configuración, mientras el superadministrador administra el directorio central.
 
-## 1) Supabase (base de datos, fotos y login del admin)
-1. En supabase.com crea un proyecto nuevo.
-2. **SQL Editor** → abre `supabase/schema.sql`, cambia `TU_CORREO@EJEMPLO.COM` por tu correo (4 veces) y pulsa **Run**.
-3. **Authentication → Users → Add user**: tu correo y una contraseña (activa "Auto Confirm User").
-4. En los ajustes de **Authentication** (Sign In / Providers) desactiva **Allow new users to sign up**.
-5. **Project Settings → API**: copia *Project URL* y la clave *anon public*.
+## Alcance funcional
 
-## 2) GitHub
-```
-cd oro
-git init && git add . && git commit -m "Tienda SGarcía"
-git branch -M main
-git remote add origin https://github.com/TU_USUARIO/oro.git
-git push -u origin main
-```
-(Crea antes el repositorio vacío en github.com.)
+- Marketplace público con directorio de joyerías.
+- Página pública independiente por joyería, identificada por su slug o dominio verificado.
+- Panel del propietario para administrar **productos, categorías y configuración de la tienda**.
+- Panel superadministrador para crear, activar, suspender y eliminar joyerías, asignar propietarios y vincular dominios.
+- Separación de datos por joyería mediante Supabase Row Level Security (RLS).
 
-## 3) Netlify
-1. **Add new site → Import an existing project → GitHub** y elige el repositorio. Netlify lee `netlify.toml` solo.
-2. **Site configuration → Environment variables**: agrega `SUPABASE_URL` y `SUPABASE_ANON_KEY` con lo copiado en el paso 1.5.
-3. **Deploy**. Si agregas las variables después, haz *Trigger deploy*.
+**Fuera de alcance:** citas, reservas, gestión de pedidos, inventario como módulo independiente, clientes y empleados. Se conserva el contacto comercial de la tienda por WhatsApp que ya existía en el escaparate.
 
-## 4) Administrar
-Entra a `https://TU-SITIO.netlify.app/#/admin` con tu correo y contraseña. Todo cambio se guarda en Supabase y lo ven todos los visitantes. Las fotos subidas van al bucket `images`.
+## 1. Supabase
 
-## Seguridad
-- La clave *anon* es pública por diseño; la protección real son las políticas del `schema.sql`: todos leen, solo tu correo escribe.
-- Nunca pongas la clave `service_role` en este proyecto.
+1. Ejecuta primero `supabase/schema.sql` para conservar la tabla heredada y el bucket de imágenes que utiliza la tienda actual.
+2. Abre `supabase/migrations/001_multi_jewelry_core.sql` en SQL Editor.
+3. Antes de ejecutarlo, cambia el texto `CAMBIA-ESTA-CLAVE-DE-ACTIVACION` por una clave larga y privada. Guarda esa clave: se usa una sola vez para activar el primer superadministrador.
+4. Ejecuta la migración completa.
+5. En Authentication, crea el usuario del superadministrador. Después entra a `/#/plataforma`, inicia sesión y activa la cuenta con la clave de un solo uso.
+6. Desactiva el registro público de usuarios en Supabase Auth. Los propietarios deben tener una cuenta creada y verificada con el mismo correo que el superadministrador les asignó.
 
-## Probar sin Supabase
-Abre `public/index.html`: funciona en modo demo (contraseña `aurea2026`, datos solo en tu navegador).
+No uses la clave `service_role` en el navegador. La aplicación utiliza únicamente la clave pública `anon`; RLS controla los permisos.
+
+## 2. Variables de entorno
+
+En Netlify configura:
+
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+
+Después vuelve a desplegar el sitio.
+
+## 3. Crear y administrar joyerías
+
+1. Entra a `https://TU-DOMINIO/#/plataforma` como superadministrador.
+2. Crea la joyería y asigna el correo exacto del propietario.
+3. El propietario debe iniciar sesión con ese correo desde `/#/gestion`.
+4. En su panel podrá actualizar productos, categorías y configuración.
+5. La tienda pública se puede abrir desde `/#/joyeria/slug-de-la-joyeria`. Un dominio propio requiere apuntar al hosting y quedar verificado desde el panel central.
+
+## 4. Tienda anterior
+
+La tienda SGarcía y sus datos heredados se conservan. Al crear la primera joyería, el sistema intenta copiar los registros heredados de configuración, productos y colecciones. Los datos locales del navegador no se copian automáticamente entre joyerías.
+
+## 5. Desarrollo y despliegue
+
+El trabajo multi-joyería se desarrolla en la rama `feature/oro-multi-jewelry-barberpro-core`. No se ha integrado a `main` automáticamente. Revisa y prueba la rama antes de fusionarla y desplegarla.
