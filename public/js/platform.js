@@ -4,6 +4,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const slugify=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48);
 let client=null,tenant=null,platformHome=false,admin=false;
 const host=()=>location.hostname.toLowerCase();
+const rootDomain=()=>String(window.ORO_ROOT_DOMAIN||'').trim().toLowerCase().replace(/^\.+|\.+$/g,'');
+const tenantSubdomain=slug=>rootDomain()?slug+'.'+rootDomain():'';
 async function init(sb){
  client=sb;
  const domain=host();
@@ -11,6 +13,8 @@ async function init(sb){
   const {data,error}=await client.rpc('resolve_jewelry_domain',{p_domain:domain});
   if(error)return {tenant:null,platformHome:false,legacy:true};
   if(data&&data[0]){tenant=data[0];platformHome=false;return {tenant,platformHome:false}}
+  const root=rootDomain();
+  if(root&&domain.endsWith('.'+root)){const candidate=domain.slice(0,-root.length-1).split('.')[0];if(candidate&&await openTenantBySlug(candidate))return {tenant,platformHome:false}}
  }catch(e){return {tenant:null,platformHome:false,legacy:true}}
  tenant=null;platformHome=true;
  try{const {data}=await client.from('jewelry_tenants').select('id').eq('status','active').limit(1);if(data?.length===1){} }catch(e){}
@@ -63,6 +67,9 @@ async function renderAdmin(){
  const {data:stores,error}=await client.from('jewelry_tenants').select('*').order('created_at',{ascending:false});
  const {data:domains}=await client.from('jewelry_domains').select('*');
  const {data:owners}=await client.from('jewelry_tenant_owners').select('tenant_id,owner_email');
+ const {data:billing}=await client.from('jewelry_billing').select('*');
+ const {data:payments}=await client.from('jewelry_payments').select('*').order('paid_at',{ascending:false}).limit(100);
+ const billingMap={};(billing||[]).forEach(b=>billingMap[b.tenant_id]=b);
  const domainMap={},ownerMap={};(domains||[]).forEach(d=>domainMap[d.tenant_id]=d.domain);(owners||[]).forEach(o=>ownerMap[o.tenant_id]=o.owner_email);
  root.innerHTML='<section class="platform-admin"><div class="platform-wrap"><header class="platform-head"><div><span class="market-eyebrow">ORO · SUPERADMIN</span><h1>Centro de joyerías</h1><p>Administra negocios, propietarios y dominios desde un solo lugar.</p></div><button id="platformLogout" class="platform-secondary">Cerrar sesión</button></header><div class="platform-stats"><article><small>Joyerías</small><b>'+(stores||[]).length+'</b></article><article><small>Activas</small><b>'+(stores||[]).filter(x=>x.status==='active').length+'</b></article><article><small>Con dominio</small><b>'+(domains||[]).length+'</b></article></div><div class="platform-columns"><form id="createJewelry" class="platform-panel"><span class="market-eyebrow">NUEVO NEGOCIO</span><h2>Agregar joyería</h2><label>Nombre comercial<input name="name" required placeholder="Ej. Joyería SGarcía"></label><label>Nombre de marca<input name="brand" required placeholder="Marca visible"></label><label>Identificador URL<input name="slug" required pattern="[a-z0-9-]+" placeholder="joyeria-sgarcia"></label><label>Correo del propietario<input name="owner" type="email" required placeholder="propietario@correo.com"></label><label>Ciudad<input name="city" placeholder="Ciudad, país"></label><label>Descripción<textarea name="description" rows="3" placeholder="Presentación breve"></textarea></label><label>Dominio propio (opcional)<input name="domain" placeholder="www.mimarca.com"></label><button class="platform-primary">Crear joyería</button><p id="createMsg" role="status"></p></form><div class="platform-panel"><span class="market-eyebrow">DIRECTORIO</span><h2>Joyerías registradas</h2><div class="platform-store-list">'+((stores||[]).map(t=>'<article class="platform-store"><div><b>'+esc(t.brand_name)+'</b><small>'+esc(t.slug)+' · '+esc(ownerMap[t.id]||'Propietario sin asignar')+'</small><small>'+esc(domainMap[t.id]||'Sin dominio vinculado')+'</small><input data-domain-input="'+t.id+'" placeholder="nuevo-dominio.com" aria-label="Dominio de la joyería"></div><select data-status="'+t.id+'"><option value="active" '+(t.status==='active'?'selected':'')+'>Activa</option><option value="suspended" '+(t.status==='suspended'?'selected':'')+'>Suspendida</option><option value="draft" '+(t.status==='draft'?'selected':'')+'>Borrador</option></select><button class="platform-secondary" data-add-domain="'+t.id+'">Guardar dominio</button><button class="platform-secondary" data-verify="'+t.id+'" data-domain="'+(domainMap[t.id]||'')+'">Verificar dominio</button><button class="platform-danger" data-delete="'+t.id+'">Eliminar</button></article>').join('')||'<p>Aún no hay joyerías.</p>')+'</div></div></div><aside class="platform-note"><b>Dominios:</b> el dominio debe existir y apuntar al hosting. La asociación queda pendiente de verificación DNS; no se marca como activo hasta verificarlo.</aside></div></section>';
  if(error){root.querySelector('.platform-store-list').textContent='No se pudo cargar el listado.';return}
