@@ -1,9 +1,16 @@
 #!/bin/sh
-# Vercel y Netlify: genera la configuración pública de Supabase durante el build.
+# Vercel static build: inject only public Supabase credentials and the public root domain.
 set -eu
-if [ -z "${SUPABASE_URL:-}" ] || [ -z "${SUPABASE_ANON_KEY:-}" ]; then
-  echo "ERROR: faltan SUPABASE_URL y/o SUPABASE_ANON_KEY. Configúralas en las variables de entorno del hosting y vuelve a desplegar." >&2
-  exit 1
+: "${SUPABASE_URL:?ERROR: configura SUPABASE_URL en Vercel}"
+: "${SUPABASE_ANON_KEY:?ERROR: configura SUPABASE_ANON_KEY en Vercel}"
+ROOT_DOMAIN="${ORO_ROOT_DOMAIN:-}"
+if [ -n "$ROOT_DOMAIN" ]; then
+  case "$ROOT_DOMAIN" in
+    *[!a-zA-Z0-9.-]*|.*|*.) echo "ERROR: ORO_ROOT_DOMAIN debe ser un dominio sin protocolo ni rutas." >&2; exit 1 ;;
+  esac
 fi
-printf 'window.SB={url:"%s",key:"%s"};\n' "$SUPABASE_URL" "$SUPABASE_ANON_KEY" > public/js/config.js
-echo "Configuración de Supabase generada correctamente."
+printf 'window.SB={url:"%s",key:"%s"};window.ORO_ROOT_DOMAIN="%s";\n' "$SUPABASE_URL" "$SUPABASE_ANON_KEY" "$ROOT_DOMAIN" > public/js/config.js
+echo "Configuración pública generada."
+if [ -z "$ROOT_DOMAIN" ]; then
+  echo "AVISO: ORO_ROOT_DOMAIN no está configurado; no se podrán generar subdominios automáticamente."
+fi
