@@ -14,7 +14,7 @@ ORO permite publicar varias joyerías independientes en una sola plataforma. Cad
 
 ## 1. Supabase
 
-1. Ejecuta primero `supabase/schema.sql` para conservar la tabla heredada y el bucket de imágenes que utiliza la tienda actual.
+1. En `supabase/schema.sql`, reemplaza `TU_CORREO@EJEMPLO.COM` por el correo del administrador donde aparece (4 veces). Ejecuta el archivo para conservar la tabla heredada y el bucket de imágenes que utiliza la tienda actual.
 2. Abre `supabase/migrations/001_multi_jewelry_core.sql` en SQL Editor.
 3. Antes de ejecutarlo, cambia el texto `CAMBIA-ESTA-CLAVE-DE-ACTIVACION` por una clave larga y privada. Guarda esa clave: se usa una sola vez para activar el primer superadministrador.
 4. Ejecuta la migración completa.
