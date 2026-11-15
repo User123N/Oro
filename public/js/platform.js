@@ -82,10 +82,10 @@ function renderBillingPanel(root,stores,billingMap,payments){
   const id=btn.dataset.recordPayment,type=panel.querySelector('[data-payment-type="'+id+'"]').value,amount=Number(panel.querySelector('[data-payment-amount="'+id+'"]').value),note=panel.querySelector('[data-payment-note="'+id+'"]').value.trim();
   if(!Number.isFinite(amount)||amount<=0){alert('Introduce un valor de pago válido.');return}
   const now=new Date(),today=now.toISOString().slice(0,10),end=new Date(now);
-  if(type==='monthly')end.setMonth(end.getMonth()+1);
+  end.setMonth(end.getMonth()+1);
   const {error}=await client.from('jewelry_payments').insert({tenant_id:id,payment_type:type,amount,paid_at:now.toISOString(),period_start:type==='monthly'?today:null,period_end:type==='monthly'?end.toISOString().slice(0,10):null,note});
   if(error){alert('No se pudo registrar el pago: '+error.message);return}
-  if(type==='monthly'){
+  if(type==='monthly'||type==='setup'){
    const {error:billingError}=await client.from('jewelry_billing').update({billing_status:'active',next_due_at:end.toISOString().slice(0,10),updated_at:now.toISOString()}).eq('tenant_id',id);
    if(billingError){alert('Pago registrado, pero no se actualizó el vencimiento: '+billingError.message);return}
    const {error:tenantError}=await client.from('jewelry_tenants').update({status:'active',updated_at:now.toISOString()}).eq('id',id);
