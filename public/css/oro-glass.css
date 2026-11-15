@@ -103,3 +103,6 @@ footer{background:rgba(10,11,14,.8)!important;border-top:1px solid var(--oro-str
 .oro-payment-history small{font-size:.76rem}
 @media(max-width:800px){.oro-billing-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.oro-payment-entry{grid-template-columns:1fr 1fr}.oro-payment-entry input:nth-of-type(2){grid-column:1/-1}}
 @media(max-width:520px){.oro-billing-fields,.oro-payment-entry{grid-template-columns:1fr}.oro-payment-entry input:nth-of-type(2){grid-column:auto}.oro-billing-row{padding:14px}}
+
+.platform-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+@media(max-width:900px){.platform-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
