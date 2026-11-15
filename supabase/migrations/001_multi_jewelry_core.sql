@@ -83,7 +83,10 @@ as $$
   );
 $$;
 
-create or replace function public.resolve_jewelry_domain(p_domain text)
+-- Drop the previous signature first because PostgreSQL cannot change OUT/RETURNS TABLE types with CREATE OR REPLACE.
+drop function if exists public.resolve_jewelry_domain(text);
+
+create function public.resolve_jewelry_domain(p_domain text)
 returns table (
   id uuid, tenant_id uuid, slug text, name text, brand_name text,
   description text, logo_url text, city text, status text
