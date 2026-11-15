@@ -75,6 +75,7 @@ function renderBillingPanel(root,stores,billingMap,payments){
   const payload={tenant_id:id,setup_fee:Math.max(0,Number(panel.querySelector('[data-setup="'+id+'"]').value||0)),monthly_fee:Math.max(0,Number(panel.querySelector('[data-monthly="'+id+'"]').value||0)),next_due_at:panel.querySelector('[data-due="'+id+'"]').value||null,billing_status:panel.querySelector('[data-bill-status="'+id+'"]').value,updated_at:new Date().toISOString()};
   const {error}=await client.from('jewelry_billing').upsert(payload,{onConflict:'tenant_id'});
   if(error){alert('No se pudieron guardar las condiciones: '+error.message);return}
+  if(payload.billing_status==='suspended'||payload.billing_status==='active'){const {error:tenantError}=await client.from('jewelry_tenants').update({status:payload.billing_status,updated_at:new Date().toISOString()}).eq('id',id);if(tenantError){alert('Condiciones guardadas, pero no se actualizó el estado del catálogo: '+tenantError.message);return}}
   alert('Condiciones comerciales guardadas.');
  });
  panel.querySelectorAll('[data-record-payment]').forEach(btn=>btn.onclick=async()=>{
@@ -87,6 +88,8 @@ function renderBillingPanel(root,stores,billingMap,payments){
   if(type==='monthly'){
    const {error:billingError}=await client.from('jewelry_billing').update({billing_status:'active',next_due_at:end.toISOString().slice(0,10),updated_at:now.toISOString()}).eq('tenant_id',id);
    if(billingError){alert('Pago registrado, pero no se actualizó el vencimiento: '+billingError.message);return}
+   const {error:tenantError}=await client.from('jewelry_tenants').update({status:'active',updated_at:now.toISOString()}).eq('id',id);
+   if(tenantError){alert('Pago registrado, pero no se reactivó el catálogo: '+tenantError.message);return}
   }
   alert('Pago registrado correctamente.');
   renderAdmin();
