@@ -246,3 +246,21 @@ footer .lg{color:#f4efe5!important}
  .oro-overview-grid{grid-template-columns:1fr}
  .oro-overview-action{min-height:125px;padding:17px}
 }
+
+
+/* Tenant owner dashboard navigation and overview */
+.oro-owner-tabs{display:flex;gap:7px;overflow-x:auto;padding:8px;margin:18px 0;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
+.oro-owner-tabs button{flex:0 0 auto;min-height:42px;padding:10px 15px;border:1px solid transparent;border-radius:11px;background:transparent;color:var(--muted);font:650 12px var(--fb);cursor:pointer}
+.oro-owner-tabs button.active,.oro-owner-tabs button:hover{background:rgba(200,165,106,.12);border-color:rgba(200,165,106,.2);color:var(--gold-light)}
+.oro-owner-home{margin-bottom:18px}
+.oro-owner-home h2{margin:10px 0!important;font:500 clamp(28px,4vw,42px)/1.1 var(--fh)!important;color:var(--text)}
+.oro-owner-home>p{max-width:650px;color:var(--muted);line-height:1.7;font-size:13px}
+.oro-owner-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}
+.oro-owner-metrics article{padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}
+.oro-owner-metrics small{display:block;color:var(--muted);font-size:11px}
+.oro-owner-metrics b{display:block;margin-top:9px;color:var(--gold-light);font-size:25px;letter-spacing:-.03em}
+.oro-owner-shortcuts{display:flex;gap:9px;flex-wrap:wrap}
+.oro-owner-shortcuts button{padding:11px 14px;border:1px solid rgba(200,165,106,.22);border-radius:11px;background:rgba(200,165,106,.07);color:var(--gold-light);font:650 11px var(--fb);cursor:pointer}
+.oro-owner-shortcuts button:hover{background:rgba(200,165,106,.14)}
+[data-owner-panel][hidden]{display:none!important}
+@media(max-width:600px){.oro-owner-metrics{grid-template-columns:1fr 1fr}.oro-owner-metrics article:last-child{grid-column:1/-1}.oro-owner-shortcuts{display:grid;grid-template-columns:1fr}.oro-owner-shortcuts button{text-align:left}}
