@@ -45,6 +45,7 @@ async function renderHome(){
  document.querySelector('#hd').innerHTML='<header class="market-header"><a href="#/" class="market-brand">ORO<span>✦</span></a><nav><a href="#/">Joyerías</a><a href="#/gestion">Mi joyería</a><a href="#/plataforma">Centro ORO</a></nav></header>';
  document.querySelector('#ft').innerHTML='<footer class="market-footer"><div class="market-wrap"><b>ORO · MARKETPLACE</b><span>Un espacio para cada joyería.</span><a href="#/gestion">Administrar mi joyería ↗</a><a href="#/plataforma">Centro ORO ↗</a></div></footer>';
  root.innerHTML='<section class="market-hero"><div class="market-orb"></div><div class="market-wrap"><span class="market-eyebrow">ORO · MARKETPLACE</span><h1>Un universo de<br><em>joyerías.</em></h1><p>Descubre marcas, colecciones y piezas únicas. Cada joyería tiene su propio espacio.</p><div class="market-search"><input id="marketSearch" type="search" placeholder="Buscar una joyería o ciudad…"></div><div id="marketGrid" class="market-grid"><p>Cargando joyerías…</p></div></div></section>';
+ if(!client){document.querySelector('#marketGrid').innerHTML='<p class="market-empty">El directorio se está conectando. El acceso de propietarios está disponible desde “Mi joyería”.</p>';return}
  try{
   const {data,error}=await client.from('jewelry_tenants').select('id,slug,name,brand_name,description,logo_url,city').eq('status','active').order('created_at',{ascending:false});
   if(error)throw error;
