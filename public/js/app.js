@@ -9,8 +9,8 @@
   if(busy)return;busy=true;
   try{
    const hash=location.hash||'#/';const parts=hash.replace(/^#\/?/,'').split('/');let page=parts[0]||'',slug=parts[1]||'';
-   if(page==='admin'){location.hash='#/plataforma';return}
-   if(['tienda','coleccion','producto','nosotros','contacto','inicio'].includes(page)){location.hash='#/';return}
+   if(page==='admin')page='plataforma';
+   if(['tienda','coleccion','producto','nosotros','contacto','inicio'].includes(page))page='';
    if(page==='gestion'){
     $('#hd').innerHTML='';$('#ft').innerHTML='';
     if(!ready){connectionPage('Panel temporalmente desconectado','No se pudo establecer conexión con Supabase. Verifica las variables públicas del proyecto en Vercel.');return}
