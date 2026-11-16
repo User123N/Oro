@@ -5,15 +5,15 @@ ORO es una plataforma SaaS para vender páginas de catálogo a múltiples joyer�
 ## Alcance
 - Página comercial de ORO y catálogo público independiente por joyería.
 - Subdominios: `slug.dominio-de-oro.com`.
-- Panel de propietario: productos, categorías y personalización.
+- Panel de propietario: dashboard, productos, categorías, inventario, clientes y personalización.
 - Superadministrador: joyerías, propietarios, subdominios, estado del servicio y pagos.
 - Aislamiento multi-tenant con Supabase RLS.
-- Sin citas, reservas, pedidos, carrito, empleados, inventario ni CRM. El contacto por WhatsApp puede permanecer como canal de consulta.
+- Sin citas, reservas, pedidos, carrito ni empleados. No se registran ventas; el contacto comercial permanece en WhatsApp.
 
 ## Supabase
 1. Ejecuta `supabase/schema.sql` solo si aún necesitas la tabla heredada `store` y el bucket de imágenes; conserva el correo administrador que corresponda.
-2. Ejecuta `supabase/migrations/001_multi_jewelry_core.sql`. Cambia el token de activación antes de ejecutarlo y guarda la clave.
-3. Ejecuta `supabase/migrations/002_jewelry_billing.sql` después de la migración 001.
+2. Aplica las migraciones de plataforma multi-joyería, facturación y seguridad que usa tu proyecto Supabase actual. No vuelvas a ejecutar una migración ya aplicada.
+3. Ejecuta `supabase/migrations/006_inventory_and_customers.sql` después de las migraciones de plataforma y permisos. Conserva las cantidades actuales, las mueve a tablas privadas por joyería y las retira del JSON público de productos. También crea el bucket `jewelry-media`, las tablas de clientes y movimientos, y las funciones transaccionales de inventario.
 4. Crea el usuario administrador en Supabase Auth, entra a `/#/plataforma` y reclama el rol con el token de un solo uso.
 5. Desactiva el registro público de usuarios. El administrador crea/asigna las cuentas de propietarios.
 
@@ -40,6 +40,9 @@ No marques el dominio wildcard como listo hasta que Vercel y DNS lo hayan valida
 ## Operación
 - Superadministrador: `/#/plataforma`.
 - Propietario: `/#/gestion`.
+- Las entradas, salidas y ajustes de inventario actualizan el saldo y registran el movimiento en una transacción SQL.
+- Los contactos, existencias e historial de inventario están limitados a usuarios autorizados de cada joyería; no se muestran en el catálogo público.
+- Las fotos de productos y categorías se guardan en `jewelry-media/{tenant_id}/...`, en formatos de imagen permitidos y hasta 5 MB.
 - Cada catálogo se abre en su subdominio; el acceso por slug `/#/joyeria/slug` se conserva como ruta auxiliar.
 - Los pagos se registran manualmente desde el panel; esta versión no integra pasarela automática.
 - Suspender un servicio no borra el catálogo ni sus datos.
