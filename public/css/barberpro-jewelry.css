@@ -172,3 +172,95 @@ footer .lg{color:#f4efe5!important}
  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
  .rv{opacity:1!important;transform:none!important}
 }
+
+
+/* ORO owner workspace — BarberPro-like information architecture, jewelry styling */
+.ad{
+  display:grid!important;
+  grid-template-columns:238px minmax(0,1fr)!important;
+  align-items:start!important;
+  gap:26px!important;
+  max-width:1320px!important;
+  padding-top:42px!important;
+  padding-bottom:72px!important;
+}
+.ad>nav{
+  position:sticky!important;
+  top:104px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:5px!important;
+  padding:14px!important;
+  min-width:0!important;
+}
+.ad>nav button{
+  width:100%!important;
+  min-height:43px!important;
+  padding:11px 13px!important;
+  text-align:left!important;
+  font:600 12px/1.35 var(--fb)!important;
+  letter-spacing:.025em!important;
+  border:1px solid transparent!important;
+  background:transparent!important;
+  color:var(--muted)!important;
+  border-radius:11px!important;
+  cursor:pointer!important;
+}
+.ad>nav button.on,.ad>nav button:hover{
+  color:var(--gold-light)!important;
+  border-color:rgba(200,165,106,.18)!important;
+  background:rgba(200,165,106,.10)!important;
+}
+.ad>nav .btn{width:100%!important;margin-top:12px!important;justify-content:center!important}
+.ad>div{min-width:0!important}
+.ad>div>h2,.ad>div>.fh{color:var(--text)!important}
+.oro-owner-overview{min-width:0}
+.oro-overview-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin:4px 0 26px}
+.oro-overview-heading h2{margin:10px 0 8px!important;font:500 clamp(30px,4vw,46px)/1.08 var(--fh)!important;letter-spacing:-.035em;color:var(--text)}
+.oro-overview-heading p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+.oro-overview-heading>.btn{white-space:nowrap}
+.oro-overview-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.oro-overview-stats article{min-width:0;padding:18px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018))}
+.oro-overview-stats span,.oro-overview-stats small{display:block;color:var(--muted);font-size:11px}
+.oro-overview-stats b{display:block;margin:12px 0 5px;color:var(--gold-light);font:600 30px/1 var(--fb);letter-spacing:-.04em}
+.oro-overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.oro-overview-action{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:150px;padding:20px;text-align:left;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,#171a20,#101217);color:var(--text);cursor:pointer;transition:border-color .2s,transform .2s}
+.oro-overview-action:hover{transform:translateY(-2px);border-color:rgba(200,165,106,.42)}
+.oro-overview-action>span{color:var(--gold);font-size:10px;letter-spacing:.14em}
+.oro-overview-action>b{font-size:15px}
+.oro-overview-action>small{max-width:290px;color:var(--muted);font-size:11px;line-height:1.6}
+.oro-overview-action>i{position:absolute;right:18px;top:18px;color:var(--gold-light);font-style:normal}
+@media(max-width:900px){
+ .ad{grid-template-columns:1fr!important;gap:18px!important;padding-top:24px!important}
+ .ad>nav{position:static!important;display:flex!important;flex-direction:row!important;overflow-x:auto!important;gap:6px!important;white-space:nowrap!important;padding:9px!important}
+ .ad>nav button{width:auto!important;flex:0 0 auto!important;min-height:39px!important;text-align:center!important;padding:9px 12px!important}
+ .ad>nav .btn{width:auto!important;flex:0 0 auto!important;margin:0!important}
+}
+@media(max-width:600px){
+ .oro-overview-heading{align-items:flex-start;flex-direction:column}
+ .oro-overview-heading>.btn{width:100%;justify-content:center}
+ .oro-overview-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .oro-overview-stats article{padding:14px}
+ .oro-overview-stats b{font-size:25px}
+ .oro-overview-grid{grid-template-columns:1fr}
+ .oro-overview-action{min-height:125px;padding:17px}
+}
+
+
+/* Tenant owner dashboard navigation and overview */
+.oro-owner-tabs{display:flex;gap:7px;overflow-x:auto;padding:8px;margin:18px 0;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
+.oro-owner-tabs button{flex:0 0 auto;min-height:42px;padding:10px 15px;border:1px solid transparent;border-radius:11px;background:transparent;color:var(--muted);font:650 12px var(--fb);cursor:pointer}
+.oro-owner-tabs button.active,.oro-owner-tabs button:hover{background:rgba(200,165,106,.12);border-color:rgba(200,165,106,.2);color:var(--gold-light)}
+.oro-owner-home{margin-bottom:18px}
+.oro-owner-home h2{margin:10px 0!important;font:500 clamp(28px,4vw,42px)/1.1 var(--fh)!important;color:var(--text)}
+.oro-owner-home>p{max-width:650px;color:var(--muted);line-height:1.7;font-size:13px}
+.oro-owner-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}
+.oro-owner-metrics article{padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}
+.oro-owner-metrics small{display:block;color:var(--muted);font-size:11px}
+.oro-owner-metrics b{display:block;margin-top:9px;color:var(--gold-light);font-size:25px;letter-spacing:-.03em}
+.oro-owner-shortcuts{display:flex;gap:9px;flex-wrap:wrap}
+.oro-owner-shortcuts button{padding:11px 14px;border:1px solid rgba(200,165,106,.22);border-radius:11px;background:rgba(200,165,106,.07);color:var(--gold-light);font:650 11px var(--fb);cursor:pointer}
+.oro-owner-shortcuts button:hover{background:rgba(200,165,106,.14)}
+[data-owner-panel][hidden]{display:none!important}
+@media(max-width:600px){.oro-owner-metrics{grid-template-columns:1fr 1fr}.oro-owner-metrics article:last-child{grid-column:1/-1}.oro-owner-shortcuts{display:grid;grid-template-columns:1fr}.oro-owner-shortcuts button{text-align:left}}
